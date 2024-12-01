@@ -19,11 +19,19 @@ namespace AoC24
             st.Start();
             string result = day switch
             {
+                1 => day1(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
             Console.WriteLine("Result : {0}", result);
             Console.WriteLine("Elapsed : {0}", st.Elapsed.TotalSeconds);
+        }
+
+        static string day1(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            
+            return "Not implemented";
         }
     }
 }
