@@ -20,8 +20,29 @@
             return sameSign && inDifRange;
         }
 
+        bool IsSafeTolerate(List<int> report)
+        {
+            // Bruteforce
+
+            if (IsSafe(report))
+                return true;
+
+            for (int i = 0; i < report.Count(); i++)
+            {
+                var reportCopy = new List<int>();
+                reportCopy.AddRange(report);
+
+                reportCopy.RemoveAt(i);
+
+                if (IsSafe(reportCopy))
+                    return true;
+            }
+            return false;
+        }
+
         int FindSafeReports(int part)
-            => Reports.Count(x => IsSafe(x));
+            => part == 1 ? Reports.Count(x => IsSafe(x)) : Reports.Count(x => IsSafeTolerate(x));
+
 
         public int Solve(int part = 1)
             => FindSafeReports(part);
