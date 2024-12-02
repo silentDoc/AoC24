@@ -22,16 +22,14 @@
 
         bool IsSafeTolerate(List<int> report)
         {
-            // Bruteforce
-
             if (IsSafe(report))
                 return true;
 
+            // Bruteforce
             for (int i = 0; i < report.Count(); i++)
             {
                 var reportCopy = new List<int>();
                 reportCopy.AddRange(report);
-
                 reportCopy.RemoveAt(i);
 
                 if (IsSafe(reportCopy))
@@ -42,7 +40,6 @@
 
         int FindSafeReports(int part)
             => part == 1 ? Reports.Count(x => IsSafe(x)) : Reports.Count(x => IsSafeTolerate(x));
-
 
         public int Solve(int part = 1)
             => FindSafeReports(part);
