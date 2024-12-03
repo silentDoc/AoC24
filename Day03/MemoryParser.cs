@@ -2,19 +2,7 @@
 
 namespace AoC24.Day03
 {
-    class RegexElement
-    {
-        public string Type = "";
-        public int Position = 0;
-        public int MulValue = 0;
-
-        public RegexElement(string type, int pos, int  mulValue)
-        {
-            Type = type;
-            Position = pos;
-            MulValue = mulValue;
-        }
-    }
+    record RegexElement(string Type, int Position, int MulValue);
 
     internal class MemoryParser
     {
