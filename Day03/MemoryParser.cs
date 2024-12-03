@@ -6,51 +6,38 @@ namespace AoC24.Day03
     {
         public string Type = "";
         public int Position = 0;
-        public GroupCollection? Group = null;
+        public int MulValue = 0;
 
-        public RegexElement(string type, int pos, GroupCollection group)
+        public RegexElement(string type, int pos, int  mulValue)
         {
             Type = type;
             Position = pos;
-            Group = group;
+            MulValue = mulValue;
         }
     }
 
     internal class MemoryParser
     {
-        List<string> lines = [];
-        string patternMul = @"mul\(([0-9]{1,3}),([0-9]{1,3})\)";
-        string patternDo = @"do\(\)";
-        string patternDont = @"don't\(\)";
-
+        string Input = "";
+        Regex regexMul = new(@"mul\(([0-9]{1,3}),([0-9]{1,3})\)");
+        Regex regexDo = new(@"do\(\)");
+        Regex regexDont = new(@"don't\(\)");
 
         public void ParseInput(List<string> input)
-            => lines = input;
+            => Input = string.Concat(input);
+
+        int GetMul(GroupCollection group)
+            => int.Parse(group[1].Value) * int.Parse(group[2].Value);
 
         int FindMulSum()
-        {
-            Regex regex = new(patternMul);
-            int result = 0;
-
-            var fullLine = string.Concat(lines);
-            foreach (Match match in regex.Matches(fullLine))
-               result += int.Parse(match.Groups[1].Value) * int.Parse(match.Groups[2].Value);
-            
-            return result;
-        }
+            => regexMul.Matches(Input).Select(m => GetMul(m.Groups)).Sum();
 
         int FindMulSumEnabling()
         {
-            Regex regexMul = new(patternMul);
-            Regex regexDo = new(patternDo);
-            Regex regexDont = new(patternDont);
-
             int result = 0;
-            var fullLine = string.Concat(lines);
-
-            var mulPositions = regexMul.Matches(fullLine).Select(x => new RegexElement("Mul", x.Index, x.Groups)).ToList();
-            var doPositions = regexDo.Matches(fullLine).Select(x => new RegexElement("Do", x.Index, x.Groups)).ToList();
-            var dontPositions = regexDont.Matches(fullLine).Select(x => new RegexElement("Dont", x.Index, x.Groups)).ToList();
+            var mulPositions = regexMul.Matches(Input).Select(x => new RegexElement("Mul", x.Index, GetMul(x.Groups))).ToList();
+            var doPositions = regexDo.Matches(Input).Select(x => new RegexElement("Do", x.Index, 0)).ToList();
+            var dontPositions = regexDont.Matches(Input).Select(x => new RegexElement("Dont", x.Index, 0)).ToList();
 
             List<RegexElement> fullList = [..mulPositions,..doPositions,..dontPositions];
 
@@ -62,7 +49,7 @@ namespace AoC24.Day03
                 if (elem.Type == "Dont")
                     enabled = false;
                 if (elem.Type == "Mul" && enabled)
-                    result += int.Parse(elem.Group[1].Value) * int.Parse(elem.Group[2].Value);
+                    result += elem.MulValue;
             }
             return result;
         }
