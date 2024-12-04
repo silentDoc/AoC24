@@ -8,8 +8,8 @@ namespace AoC24
         {
             int day = 4;
             int part = 1;
-            bool test = false;
-            int testNum = 1;
+            bool test = !false;
+            int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
             input += (test) ? "_test" + (testNum > 0 ? testNum.ToString() : "") + ".txt" : ".txt";
@@ -57,9 +57,9 @@ namespace AoC24
         static string day4(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            //Day03.MemoryParser daySolver = new();
-            //daySolver.ParseInput(lines);
-            return ""; // daySolver.Solve(part).ToString();
+            Day04.LetterSoup daySolver = new();
+            daySolver.ParseInput(lines);
+            return daySolver.Solve(part).ToString();
         }
     }
 }
