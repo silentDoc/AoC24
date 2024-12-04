@@ -6,7 +6,7 @@ namespace AoC24
     {
         static void Main(string[] args)
         {
-            int day = 3;
+            int day = 4;
             int part = 1;
             bool test = false;
             int testNum = 1;
@@ -22,6 +22,7 @@ namespace AoC24
                 1 => day1(input, part),
                 2 => day2(input, part),
                 3 => day3(input, part),
+                4 => day4(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -51,6 +52,14 @@ namespace AoC24
             Day03.MemoryParser daySolver = new();
             daySolver.ParseInput(lines);
             return daySolver.Solve(part).ToString();
+        }
+
+        static string day4(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            //Day03.MemoryParser daySolver = new();
+            //daySolver.ParseInput(lines);
+            return ""; // daySolver.Solve(part).ToString();
         }
     }
 }
