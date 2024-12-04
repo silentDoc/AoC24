@@ -7,8 +7,8 @@ namespace AoC24
         static void Main(string[] args)
         {
             int day = 4;
-            int part = 1;
-            bool test = !false;
+            int part = 2;
+            bool test = false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
