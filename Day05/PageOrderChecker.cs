@@ -36,7 +36,7 @@ namespace AoC24.Day05
         int ReorderIncorrect()
         {
             var incorrectUpdates = updates.Where(u => !IsCorrect(u)).ToList();
-            var fixedUpdates = incorrectUpdates.Select(x => x.OrderBy(y=>y, customComparer).ToList()).ToList();
+            var fixedUpdates = incorrectUpdates.Select(x => x.OrderBy(y => y, customComparer).ToList());
             return fixedUpdates.Sum(x => x[x.Count() / 2]);
         }
 
