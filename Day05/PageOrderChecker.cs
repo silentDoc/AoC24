@@ -28,17 +28,12 @@ namespace AoC24.Day05
                     .All(x => x);
 
         int FindCorrectUpdates()
-        {
-            var correctUpdates = updates.Where(u => IsCorrect(u)).ToList();
-            return correctUpdates.Sum(x => x[x.Count() / 2]);
-        }
+            => updates.Where(u => IsCorrect(u)).Sum(x => x[x.Count() / 2]);
 
         int ReorderIncorrect()
-        {
-            var incorrectUpdates = updates.Where(u => !IsCorrect(u)).ToList();
-            var fixedUpdates = incorrectUpdates.Select(x => x.OrderBy(y => y, customComparer).ToList());
-            return fixedUpdates.Sum(x => x[x.Count() / 2]);
-        }
+            => updates.Where(u => !IsCorrect(u))
+                      .Select(x => x.OrderBy(y => y, customComparer).ToList())
+                      .Sum(x => x[x.Count() / 2]);
 
         public int Solve(int part = 1)
             => part == 1 ? FindCorrectUpdates() : ReorderIncorrect();
