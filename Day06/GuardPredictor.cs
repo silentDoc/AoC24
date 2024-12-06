@@ -37,7 +37,6 @@ namespace AoC24.Day06
         {
             Coord2D currentPos = map.Keys.First(x => map[x] == '^');
             Coord2D currentDir = Direction.Up;
-            
             HashSet<Coord2D> visited = new();
 
             while (map.ContainsKey(currentPos))
@@ -59,11 +58,11 @@ namespace AoC24.Day06
 
         bool InALoop(Coord2D obstruction)
         {
+            // Slight modification of part 1, could use a single method but left separate for clarity
             Coord2D currentPos = map.Keys.First(x => map[x] == '^');
             Coord2D currentDir = Direction.Up;
-
-            map[obstruction] = '#';
             HashSet<string> visited = new();
+            map[obstruction] = '#';
 
             while (map.ContainsKey(currentPos))
             {
@@ -89,14 +88,8 @@ namespace AoC24.Day06
 
         int FindNumberPossibleObstructions()
         {
-            var test = InALoop((3, 6));
-
             var startPos = map.Keys.First(x => map[x] == '^');
-            var potentialSpots = GuardPositions().Where(x => x!= startPos).ToList();
-
-            var loopPositions = potentialSpots.Where(x => InALoop(x)).ToList();
-
-            return loopPositions.Count();
+            return GuardPositions().Where(x => x != startPos && InALoop(x)).Count();
         }
 
         public int Solve(int part = 1)
