@@ -12,10 +12,7 @@ namespace AoC24.Day06
 
     internal class GuardPredictor
     {
-
         Dictionary<Coord2D, char> map = new();
-        Coord2D currentPos = (0, 0);
-        Coord2D currentDir = Direction.Up;
 
         void ParseLine((int index, string item) element)
         { 
@@ -36,9 +33,11 @@ namespace AoC24.Day06
                 _ => throw new Exception("Invalid direction " + currentDirection.ToString())
             };
 
-        int FindNumberPositions()
+        HashSet<Coord2D> GuardPositions()
         {
-            currentPos = map.Keys.First(x => map[x] == '^');    
+            Coord2D currentPos = map.Keys.First(x => map[x] == '^');
+            Coord2D currentDir = Direction.Up;
+            
             HashSet<Coord2D> visited = new();
 
             while (map.ContainsKey(currentPos))
@@ -55,10 +54,52 @@ namespace AoC24.Day06
                     currentPos = nextPos;
             }
 
-            return visited.Count;
+            return visited;
         }
-        
+
+        bool InALoop(Coord2D obstruction)
+        {
+            Coord2D currentPos = map.Keys.First(x => map[x] == '^');
+            Coord2D currentDir = Direction.Up;
+
+            map[obstruction] = '#';
+            HashSet<string> visited = new();
+
+            while (map.ContainsKey(currentPos))
+            {
+                if (!visited.Add(currentPos.ToString() + ";" + currentDir.ToString()))
+                {
+                    map[obstruction] = '.';
+                    return true;
+                }
+
+                var nextPos = currentPos + currentDir;
+
+                if (!map.ContainsKey(nextPos))
+                    break;
+
+                if (map[nextPos] == '#')
+                    currentDir = TurnRight(currentDir);
+                else
+                    currentPos = nextPos;
+            }
+            map[obstruction] = '.';
+            return false;
+        }
+
+        int FindNumberPossibleObstructions()
+        {
+            var test = InALoop((3, 6));
+
+            var startPos = map.Keys.First(x => map[x] == '^');
+            var potentialSpots = GuardPositions().Where(x => x!= startPos).ToList();
+
+            var loopPositions = potentialSpots.Where(x => InALoop(x)).ToList();
+
+            return loopPositions.Count();
+        }
+
         public int Solve(int part = 1)
-            => FindNumberPositions();
+            => part == 1 ? GuardPositions().Count() : FindNumberPossibleObstructions();
     }
 }
