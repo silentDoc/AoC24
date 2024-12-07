@@ -61,7 +61,7 @@ namespace AoC24.Day06
             // Slight modification of part 1, could use a single method but left separate for clarity
             Coord2D currentPos = map.Keys.First(x => map[x] == '^');
             Coord2D currentDir = Direction.Up;
-            HashSet<string> visited = new();
+            HashSet<string> visited = new();    // Now we will store position AND direction, to know if we're cycling
             map[obstruction] = '#';
 
             while (map.ContainsKey(currentPos))
