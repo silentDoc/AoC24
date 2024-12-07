@@ -4,7 +4,6 @@
     {
         public long TestValue;
         public List<long> Numbers;
-        List<List<char>> Operators = new();
 
         public Calibration(string inputLine)
         { 
@@ -13,20 +12,23 @@
             Numbers = vals.Skip(1).ToList();
         }
 
-        public bool Eval(List<char> operators)
+        public bool Eval(List<char> operators, int part = 1)
         {
             var acum = Numbers[0];
-
             for (int i = 1; i < Numbers.Count; i++)
-                acum = operators[i-1] == '+' ? acum + Numbers[i] : acum * Numbers[i];
-
+                acum = operators[i - 1] switch
+                {
+                    '+' => acum + Numbers[i],
+                    '*' => acum * Numbers[i],
+                    '|' => long.Parse(acum.ToString() + Numbers[i].ToString()),
+                    _ => throw new Exception("Unknown operator " + operators[i - 1].ToString())
+                };
             return acum == TestValue;
         }
 
-        public int FindWaysToSolve()
+        public int FindWaysToSolve(int part =1)
         {
             // Calc all the possible combinations
-
             List<List<char>> ops = new();
             for (int i = 0; i < Numbers.Count-1; i++)
             {
@@ -34,6 +36,9 @@
                 {
                     ops.Add(['+']);
                     ops.Add(['*']);
+                    if(part == 2)
+                        ops.Add(['|']);
+
                     continue;
                 }
 
@@ -49,6 +54,13 @@
                     newList.Add(tmp);
                     newList.Add(tmp2);
 
+                    if (part == 2)
+                    {
+                        var tmp3 = l.ToList();
+                        tmp3.Add('|');
+                        newList.Add(tmp3);
+                    }
+
                     ops = newList;
                 }
             }
@@ -63,13 +75,10 @@
         public void ParseInput(List<string> lines)
             => lines.ForEach(x => calibrations.Add(new Calibration(x)));
 
-        long FindSum()
-        { 
-            var possibleCalibrations = calibrations.Where(x => x.FindWaysToSolve() > 0).ToList();
-            return possibleCalibrations.Sum(x => x.TestValue);
-        }
+        long FindSum(int part)
+            => calibrations.Where(x => x.FindWaysToSolve(part) > 0).Sum(x => x.TestValue);
 
         public long Solve(int part = 1)
-            => FindSum();
+            => FindSum(part);
     }
 }
