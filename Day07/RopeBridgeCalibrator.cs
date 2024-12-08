@@ -14,33 +14,32 @@
 
         public int FindWays(int part = 1)
         {
-            List<long> intermediate = [ Numbers[0] ];
+            List<long> acums = [ Numbers[0] ];
 
             foreach (long num in Numbers.Skip(1))
             {
-                List<long> newIntermediate = new();
-                foreach (long inter in intermediate)
+                List<long> newAcums = new();
+                foreach (long inter in acums)
                 {
                     long tmp;   // Avoiding calculating twice
 
                     if ((tmp = inter + num) <= TestValue)
-                        newIntermediate.Add(tmp);
+                        newAcums.Add(tmp);
                     if ((tmp = inter * num) <= TestValue)
-                        newIntermediate.Add(tmp);
-                    if (part == 2 && (tmp = long.Parse(inter.ToString() + num.ToString())) <= TestValue)
-                        newIntermediate.Add(tmp);
+                        newAcums.Add(tmp);
+                    if (part == 2 && (tmp = long.Parse($"{inter}{num}")) <= TestValue)
+                        newAcums.Add(tmp);
                 }
-
-                intermediate = newIntermediate;
+                acums = newAcums;
             }
-            return intermediate.Count(x => x == TestValue);
+            return acums.Count(x => x == TestValue);
         }
     }
-
 
     internal class RopeBridgeCalibrator
     {
         List<Calibration> calibrations = new();
+
         public void ParseInput(List<string> lines)
             => lines.ForEach(x => calibrations.Add(new Calibration(x)));
 
