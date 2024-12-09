@@ -102,7 +102,7 @@ namespace AoC24
         static string day9(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            Day09.Defrag daySolver = new();
+            Day09.Defragv2 daySolver = new();
             daySolver.ParseInput(lines);
             return daySolver.Solve(part).ToString();
         }
