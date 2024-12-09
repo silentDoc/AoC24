@@ -71,7 +71,7 @@ namespace AoC24.Day09
                     continue;
                 }
 
-                var chunk = BuildChunk(numBlocks, fileSequence, isFree, last);
+                var chunk = BuildChunk(numBlocks, isFree ? 0 : fileSequence, isFree, last);
 
                 if (firstBlock == null)
                 {
@@ -106,6 +106,23 @@ namespace AoC24.Day09
             }
 
             Console.WriteLine(sb.ToString());
+        }
+
+        long Checksum()
+        {
+            var head = firstBlock;
+            long retVal = 0;
+
+            long pos = 0;
+            while (head != null)
+            {
+                if (!head.free)
+                    retVal += (pos * head.id);
+                head = head.next;
+                pos++;
+            }
+
+            return retVal;
         }
 
         long CompactDisk()
@@ -149,22 +166,102 @@ namespace AoC24.Day09
                 tail.free = true;
             }
 
-            head = firstBlock;
-            long retVal = 0;
+            return Checksum();
+        }
 
-            long pos = 0;
-            while (head != null)
+        long CompactDiskFiles()
+        {
+            BuildStructure();
+
+            DiskBlock last = firstBlock.GetLast();
+            DiskBlock head = firstBlock;
+            bool stop = false;
+            HashSet<int> attempted = new HashSet<int>();
+
+            while (true)
             {
-                if (!head.free)
-                    retVal += (pos * head.id);
-                head = head.next;
-                pos++;
+                DiskBlock tail = last;
+
+                // Step 1 - Find the rightmost file
+                while (tail.free || attempted.Contains(tail.id))
+                {
+                    if (tail == firstBlock)
+                        break;
+                    tail = tail.previous;
+                }
+                
+                if (tail == firstBlock || tail == null)
+                    break;
+
+                // Step 2 - Calculate the blocks that the file in question occupies
+                DiskBlock fileCandidate = tail;
+                int currentId = fileCandidate.id;
+                int blockCount = 0;
+
+                while (fileCandidate.id == currentId)
+                {
+                    blockCount++;
+                    fileCandidate = fileCandidate.previous;
+                    if (fileCandidate == null)
+                        break;
+                }
+                if (fileCandidate == null)
+                    break;
+                fileCandidate = fileCandidate.next;
+
+                // Step 3 - Find a contiguous free space block of blockCount blocks
+                head = firstBlock;
+                var relocation = head;
+                bool found = false;
+                var freeBlocks = 0;
+
+                while (head != fileCandidate)
+                {
+                    while (!head.free)
+                    {
+                        head = head.next;
+                        if (head == fileCandidate)
+                            break;
+                    }
+
+                    relocation = head;
+                    
+                    freeBlocks = 0;
+                    while (head.free)
+                    {
+                        freeBlocks++;
+                        head = head.next;
+                    }
+
+                    if (freeBlocks >= blockCount)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    // move the file
+                    for (int i = 0; i < blockCount; i++)
+                    {
+                        relocation.id = fileCandidate.id;
+                        fileCandidate.id = 0;
+                        relocation.free = false;
+                        fileCandidate.free = true;
+
+                        relocation = relocation.next;
+                        fileCandidate = fileCandidate.next;
+                    }
+                    //Display();
+                }
+                attempted.Add(currentId);
             }
-            
-            return retVal;    
+
+            return Checksum();
         }
 
         public long Solve(int part = 1)
-            => CompactDisk();
+            => part == 1 ? CompactDisk() : CompactDiskFiles();
     }
 }
