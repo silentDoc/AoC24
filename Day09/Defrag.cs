@@ -175,7 +175,6 @@ namespace AoC24.Day09
 
             DiskBlock last = firstBlock.GetLast();
             DiskBlock head = firstBlock;
-            bool stop = false;
             HashSet<int> attempted = new HashSet<int>();
 
             while (true)
