@@ -20,6 +20,7 @@
 
         public bool IsFree
             => this.contents.free;
+
         public Block GetLast()
         {
             Block ptr = this;
@@ -75,7 +76,7 @@
             return ptr == null ? null : ptr == stop ? null : ptr;
         }
 
-        public void Move(Block other)
+        public void Swap(Block other)
         {
             var tmp = this.contents;
             this.contents = other.contents;
@@ -173,8 +174,7 @@
                 if (tail == null)
                     break;
 
-                // Step 3 - Move blocks
-                head.Move(tail);
+                head.Swap(tail);
             }
             return diskHead.Checksum();
         }
@@ -188,7 +188,6 @@
 
             while (true)
             {
-                
                 Block tail = last;
                 var filePtr = tail;
 
@@ -199,11 +198,11 @@
                 if (filePtr == null)
                     break;
 
-                // Step 2 - Calculate the blocks that the file in question occupies
+                last = filePtr; // We do not need to start from the end everytime
+
                 Block fileHead = filePtr.FindFileHead();
                 int blockCount = fileHead.ContiguousBlocks();
 
-                // Step 3 - Find a contiguous free space block of blockCount blocks
                 head = diskHead;
                 var relocation = head.FindFirstFreeUntil(fileHead);
 
@@ -217,12 +216,11 @@
 
                 for (int i = 0; i < blockCount; i++)
                 {
-                    relocation.Move(fileHead);
+                    relocation.Swap(fileHead);
                     fileHead = fileHead.next;
                     relocation = relocation.next;
                 }
             }
-
             return diskHead.Checksum();
         }
 
