@@ -6,14 +6,11 @@ namespace AoC24.Day10
     {
         Dictionary<Coord2D, int> map = new();
 
-        void ParseLine((int index, string item) line)
-        {
-            for(int i =0; i<line.item.Length; i++) 
-                map[(i, line.index)] = int.Parse(line.item[i].ToString());
-        }
+        void ParseLine(string line, int row)
+            => line.Index().ToList().ForEach(x => map[(x.Index, row)] = int.Parse(x.Item.ToString()));
 
         public void ParseInput(List<string> input)
-            => input.Index().ToList().ForEach(line => ParseLine(line));
+            => input.Index().ToList().ForEach(line => ParseLine(line.Item, line.Index));
 
         int TraverseMapPaths(Coord2D start, int part)
         {
@@ -29,7 +26,7 @@ namespace AoC24.Day10
                 var pos = path.Last();
 
                 if (map[pos] == 9)
-                    topPaths.Add([..path]);
+                    topPaths.Add(path);
 
                 var eval = pos.GetNeighbors().Where(x => map.ContainsKey(x) && map[pos] == map[x] - 1).ToList();
 
