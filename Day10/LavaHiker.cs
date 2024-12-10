@@ -14,10 +14,8 @@ namespace AoC24.Day10
 
         int TraverseMapPaths(Coord2D start, int part)
         {
-            HashSet<Coord2D> visited = new();
-            HashSet<List<Coord2D>> topPaths = new();
+            HashSet<List<Coord2D>> pathsToTop = new();
             Queue<List<Coord2D>> active = new();
-
             active.Enqueue([start]);
 
             while (active.Any())
@@ -26,7 +24,7 @@ namespace AoC24.Day10
                 var pos = path.Last();
 
                 if (map[pos] == 9)
-                    topPaths.Add(path);
+                    pathsToTop.Add(path);
 
                 var eval = pos.GetNeighbors().Where(x => map.ContainsKey(x) && map[pos] == map[x] - 1).ToList();
 
@@ -34,8 +32,8 @@ namespace AoC24.Day10
                     active.Enqueue([..path, neigh]);
             }
 
-            return part == 1 ? topPaths.Select(x => x.Last()).Distinct().Count()
-                             : topPaths.Count();
+            return part == 1 ? pathsToTop.Select(x => x.Last()).Distinct().Count()
+                             : pathsToTop.Count();
         }
 
         int FindScores(int part = 1)

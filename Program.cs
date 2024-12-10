@@ -7,7 +7,7 @@ namespace AoC24
         static void Main(string[] args)
         {
             int day = 10;
-            int part = 1;
+            int part = 2;
             bool test = false;
             int testNum = 1;
 
