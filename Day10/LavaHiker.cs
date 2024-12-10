@@ -19,21 +19,22 @@ namespace AoC24.Day10
         {
             HashSet<Coord2D> visited = new();
             HashSet<List<Coord2D>> topPaths = new();
+            Queue<List<Coord2D>> active = new();
 
-            Queue<(Coord2D, List<Coord2D> Path)> active = new();
-            active.Enqueue((start, []));
+            active.Enqueue([start]);
 
             while (active.Any())
             {
-                var (pos, path) = active.Dequeue();
+                var path = active.Dequeue();
+                var pos = path.Last();
 
                 if (map[pos] == 9)
-                    topPaths.Add([..path,pos]);
+                    topPaths.Add([..path]);
 
                 var eval = pos.GetNeighbors().Where(x => map.ContainsKey(x) && map[pos] == map[x] - 1).ToList();
 
                 foreach (var neigh in eval)
-                    active.Enqueue((neigh, [.. path, pos]));
+                    active.Enqueue([..path, neigh]);
             }
 
             return part == 1 ? topPaths.Select(x => x.Last()).Distinct().Count()
