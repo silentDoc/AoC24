@@ -7,9 +7,9 @@ namespace AoC24
         static void Main(string[] args)
         {
             int day = 10;
-            int part = 1;
+            int part = 2;
             bool test = false;
-            int testNum = 0;
+            int testNum = 1;
 
             string input = "./Input/day" + day.ToString("00");
             input += (test) ? "_test" + (testNum > 0 ? testNum.ToString() : "") + ".txt" : ".txt";
