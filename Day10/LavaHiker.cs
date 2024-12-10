@@ -15,29 +15,7 @@ namespace AoC24.Day10
         public void ParseInput(List<string> input)
             => input.Index().ToList().ForEach(line => ParseLine(line));
 
-        int TraverseMap(Coord2D start)
-        {
-            HashSet<Coord2D> visited = new();
-            HashSet<Coord2D> tops = new();
-
-            Queue<Coord2D> active = new();
-            active.Enqueue(start);
-
-            while (active.Any())
-            {
-                var pos = active.Dequeue();
-                
-                if (map[pos] == 9)
-                    tops.Add(pos);
-
-                var eval = pos.GetNeighbors().Where(x => map.ContainsKey(x) && map[pos] == map[x] - 1).ToList();
-                eval.ForEach(active.Enqueue);
-            }
-            return tops.Count();
-        }
-
-
-        int TraverseMapPaths(Coord2D start)
+        int TraverseMapPaths(Coord2D start, int part)
         {
             HashSet<Coord2D> visited = new();
             HashSet<List<Coord2D>> topPaths = new();
@@ -50,25 +28,22 @@ namespace AoC24.Day10
                 var (pos, path) = active.Dequeue();
 
                 if (map[pos] == 9)
-                    topPaths.Add(path);
+                    topPaths.Add([..path,pos]);
 
                 var eval = pos.GetNeighbors().Where(x => map.ContainsKey(x) && map[pos] == map[x] - 1).ToList();
 
                 foreach (var neigh in eval)
-                {
                     active.Enqueue((neigh, [.. path, pos]));
-                }
             }
-            return topPaths.Count();
-        }
 
+            return part == 1 ? topPaths.Select(x => x.Last()).Distinct().Count()
+                             : topPaths.Count();
+        }
 
         int FindScores(int part = 1)
         {
             var startPositions = map.Keys.Where(x => map[x] == 0);
-
-            return part == 1 ? startPositions.Sum(x => TraverseMap(x))
-                             : startPositions.Sum(x => TraverseMapPaths(x));
+            return startPositions.Sum(x => TraverseMapPaths(x, part));
         }
 
         public int Solve(int part = 1)
