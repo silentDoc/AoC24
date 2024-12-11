@@ -25,95 +25,109 @@
         void Display(List<long> stones)
             => Console.Write(string.Join(" ", stones) + "\n");
 
+        long[] Blink(long num)
+        {
+            if (num == 0)
+                return [1, -1];
+           
+            var numDigits = Math.Floor(Math.Log10(num) + 1);
+
+            if (numDigits % 2 == 0)
+            {
+                var decider = (long)Math.Pow(10, numDigits / 2);
+                long left = num / decider;
+                long right = num % decider;
+                return [left, right];
+            }
+            else
+                return [num * 2024, -1];
+         }
+
+
         long FindStonesFast(int numBlinks)
         {
-            Stone first = new(stones[0]);
-            Stone last = first;
-            Stone current = first;
-            
-            for (int i = 1; i < stones.Count; i++)
+            // LEts try some memoization
+
+            Dictionary<long, long[]> descendants = new();
+            Dictionary<long, long> stoneCount = new();
+
+            foreach(var stone in stones)
             {
-                current = new(stones[i]);
-                last.next = current;
-                last = current;
+                descendants[stone] = Blink(stone);
+                stoneCount[stone] = 1;
             }
 
             for (int i = 0; i < numBlinks; i++)
             {
-                Console.WriteLine(i.ToString());
-                current = first;
-
-                while(current!=null)
+                Dictionary<long, long> newStoneCount = new();
+                foreach (var stone in stoneCount.Keys)
                 {
+                    if (!descendants.ContainsKey(stone))
+                        descendants[stone] = Blink(stone);
 
-                    if (current.value == 0)
-                    {
-                        current.value = 1;
-                        current = current.next;
-                        continue;
-                    }
+                    var desc = descendants[stone];
+                    var first = desc[0];
+                    var second = desc[1];
+
+                    newStoneCount[first] = newStoneCount.ContainsKey(first) ? newStoneCount[first] + stoneCount[stone]
+                                                                            : stoneCount[stone];
+
+                    if (second!=-1)
+                        newStoneCount[second] = newStoneCount.ContainsKey(second) ? newStoneCount[second] + stoneCount[stone]
+                                                                                  : stoneCount[stone];
                     
-                    var numStr = current.value.ToString();
-                    var numDigits = numStr.Length;
-
-                    if (numDigits % 2 == 0)
-                    {
-                        var left = numStr.Substring(0, numDigits / 2);
-                        var right = numStr.Substring(numDigits / 2);
-
-                        current.value  = long.Parse(left);
-                        var StoneRight = new Stone(long.Parse(right));
-                        
-                        StoneRight.next = current.next;
-                        current.next = StoneRight;
-                        current = StoneRight.next;
-                    }
-                    else
-                    {
-                        current.value *= 2024;
-                        current = current.next;
-                    }
                 }
+                stoneCount = newStoneCount;
             }
 
-            current = first;
-            long total = 0;
-            while (current != null)
-            {
-                total++;
-                current = current.next;
-            }
-
-            return total;
+            return stoneCount.Values.Sum();
         }
 
 
         int FindStones(int numBlinks)
         {
+            Dictionary<long, (long, long, long)> memo = new();
+            
+
+            HashSet<long> test = new();
+           
             for (int i = 0; i < numBlinks; i++)
             {
-                Console.WriteLine(i.ToString() + " - " + stones.Count.ToString());
+                Console.WriteLine(i.ToString() + " - " + stones.Count.ToString() + " - " + test.Count.ToString());
                 List<long> newList = [];
                 foreach (var stone in stones)
                 {
+                    if (memo.ContainsKey(stone))
+                    {
+                        newList.Add(memo[stone].Item1);
+                        if (memo[stone].Item2 != -1)
+                            newList.Add(memo[stone].Item2);
+
+                        continue;
+                    }
 
                     if (stone == 0)
                     {
                         newList.Add(1);
+                        memo[0] = (1, -1, 1);
                         continue;
                     }
                     var numStr = stone.ToString();
                     var numDigits = numStr.Length;
 
                     if (numDigits % 2 == 0)
-                    { 
-                        var left = numStr.Substring(0,numDigits/2);
-                        var right = numStr.Substring(numDigits / 2);
-                        newList.Add(long.Parse(left));
-                        newList.Add(long.Parse(right));
+                    {
+                        var left = long.Parse(numStr.Substring(0, numDigits / 2));
+                        var right = long.Parse(numStr.Substring(numDigits / 2));
+                        newList.Add(left);
+                        newList.Add(right);
+                        memo[stone] = (left, right, 2);
                     }
                     else
+                    {
                         newList.Add(stone * 2024);
+                        memo[stone] = (stone*2024, -1, 1);
+                    }
                 }
                 stones = newList;
                 
