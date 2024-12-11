@@ -58,3 +58,4 @@ After 6 blinks:
 In this example, after blinking six times, you would have  `22`  stones. After blinking 25 times, you would have  `_55312_`  stones!
 
 Consider the arrangement of stones in front of you.  _How many stones will you have after blinking 25 times?_
+
