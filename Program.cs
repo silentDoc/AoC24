@@ -6,10 +6,10 @@ namespace AoC24
     {
         static void Main(string[] args)
         {
-            int day = 10;
-            int part = 2;
-            bool test = false;
-            int testNum = 1;
+            int day = 11;
+            int part = 1;
+            bool test = !false;
+            int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
             input += (test) ? "_test" + (testNum > 0 ? testNum.ToString() : "") + ".txt" : ".txt";
@@ -29,6 +29,7 @@ namespace AoC24
                 8 => day8(input, part),
                 9 => day9(input, part),
                 10 => day10(input, part),
+                11 => day11(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -114,6 +115,14 @@ namespace AoC24
             Day10.LavaHiker daySolver = new();
             daySolver.ParseInput(lines);
             return daySolver.Solve(part).ToString();
+        }
+
+        static string day11(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            //Day11 daySolver = new();
+            //daySolver.ParseInput(lines);
+            return ""; // daySolver.Solve(part).ToString();
         }
     }
 }
