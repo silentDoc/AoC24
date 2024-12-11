@@ -17,14 +17,11 @@
             if (numDigits % 2 == 0)
             {
                 var decider = (long)Math.Pow(10, numDigits / 2);
-                long left = num / decider;
-                long right = num % decider;
-                return [left, right];
+                return [num / decider, num % decider];
             }
             else
                 return [num * 2024, -1];
          }
-
 
         long FindStonesFast(int numBlinks)
         {
@@ -32,10 +29,7 @@
             Dictionary<long, long> stoneCount = new();
 
             foreach(var stone in stones)
-            {
-                descendants[stone] = Blink(stone);
                 stoneCount[stone] = 1;
-            }
 
             for (int i = 0; i < numBlinks; i++)
             {
@@ -45,20 +39,14 @@
                     if (!descendants.ContainsKey(stone))
                         descendants[stone] = Blink(stone);
 
-                    var desc = descendants[stone];
-                    var first = desc[0];
-                    var second = desc[1];
+                    var (first, second) = (descendants[stone][0], descendants[stone][1]);
 
-                    newStoneCount[first] = newStoneCount.ContainsKey(first) ? newStoneCount[first] + stoneCount[stone]
-                                                                            : stoneCount[stone];
-
-                    if (second!=-1)
-                        newStoneCount[second] = newStoneCount.ContainsKey(second) ? newStoneCount[second] + stoneCount[stone]
-                                                                                  : stoneCount[stone];
+                    newStoneCount[first] = newStoneCount.GetValueOrDefault(first, 0) + stoneCount[stone];
+                    if (second != -1)
+                        newStoneCount[second] = newStoneCount.GetValueOrDefault(second, 0) + stoneCount[stone];
                 }
                 stoneCount = newStoneCount;
             }
-
             return stoneCount.Values.Sum();
         }
 
