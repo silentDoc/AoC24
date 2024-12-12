@@ -7,13 +7,11 @@ namespace AoC24.Day12
         Dictionary<Coord2D, char> map = new();
         List<HashSet<Coord2D>> areas = new();
 
-
         void ParseLine(string line, int row)
             => line.Index().ToList().ForEach(x => map[(x.Index, row)] = x.Item);
 
         public void ParseInput(List<string> input)
             => input.Index().ToList().ForEach(line => ParseLine(line.Item, line.Index));
-
 
         HashSet<Coord2D> DiscoverArea(Coord2D startPos)
         {
@@ -32,13 +30,35 @@ namespace AoC24.Day12
                 area.Add(pos);
 
                 var neighs = pos.GetNeighbors().Where(x => map.ContainsKey(x) && !area.Contains(x) && map[x] == farmChar).ToList();
-
                 foreach (var neigh in neighs)
                     active.Enqueue(neigh);
             }
             return area;
         }
 
+        // Modified BFS to search only on a list of allowed directions. It finds connected blocks on these
+        // directions (sides), restricted to a set of positions
+        List<Coord2D> FindSide(Coord2D startPos, List<Coord2D> sidePositions,  List<Coord2D> allowedDirs)
+        {
+            HashSet<Coord2D> side = new();
+            Queue<Coord2D> active = new();
+            active.Enqueue(startPos);
+
+            while (active.Any())
+            {
+                var pos = active.Dequeue();
+
+                if (side.Contains(pos))
+                    continue;
+
+                side.Add(pos);
+                var neighs = allowedDirs.Select(x => pos + x).Where(x => sidePositions.Contains(x)).ToList();
+
+                foreach (var neigh in neighs)
+                    active.Enqueue(neigh);
+            }
+            return side.ToList();
+        }
 
         int FindPerimeter(HashSet<Coord2D> area)
             => area.Sum(x => 4 - x.GetNeighbors().Where(n => area.Contains(n)).Count());
@@ -47,111 +67,58 @@ namespace AoC24.Day12
         {
             int maxX = map.Keys.Max(k => k.x);
             int maxY = map.Keys.Max(k => k.y);
+            var sides = 0;
 
-            var perimeterBlocks = area.Where(a => a.GetNeighbors().Where(n => area.Contains(n)).Count() <4).OrderBy(k => k.y).ThenBy(k => k.x).ToList();
+            var perimeterBlocks = area.Where(a => a.GetNeighbors().Where(n => area.Contains(n)).Count() < 4).OrderBy(k => k.y).ThenBy(k => k.x).ToList();
 
             // sides
             var left = perimeterBlocks.Where(k => !area.Contains(k - (1, 0))).ToList();
             var right = perimeterBlocks.Where(k => !area.Contains(k + (1, 0))).ToList();
-            var top = perimeterBlocks.Where(k => !area.Contains(k - (0,1))).ToList();
+            var top = perimeterBlocks.Where(k => !area.Contains(k - (0, 1))).ToList();
             var bottom = perimeterBlocks.Where(k => !area.Contains(k + (0, 1))).ToList();
 
-            // left sides
-            int sides = 0;
-            HashSet<Coord2D> used = new HashSet<Coord2D>();
-            foreach (var position in left)
+            List<Coord2D> used = new List<Coord2D>();
+            foreach (var pos in left)
             {
-                if (used.Contains(position))
+                if (used.Contains(pos))
                     continue;
-                
-                var pos = position;
-
-                while (left.Contains(pos))
-                {
-                    used.Add(pos);
-                    pos += (0, 1);
-                }
-                pos = position;
-                
-                while (left.Contains(pos))
-                {
-                    used.Add(pos);
-                    pos -= (0, 1);
-                }
-                sides++;
-            }
-            used = new HashSet<Coord2D>();
-            foreach (var position in right)
-            {
-                if (used.Contains(position))
-                    continue;
-
-                var pos = position;
-
-                while (right.Contains(pos))
-                {
-                    used.Add(pos);
-                    pos += (0, 1);
-                }
-                pos = position;
-
-                while (right.Contains(pos))
-                {
-                    used.Add(pos);
-                    pos -= (0, 1);
-                }
+                var side = FindSide(pos, left, [(0, 1), (0, -1)]);
+                used.AddRange(side);
                 sides++;
             }
 
-            used = new HashSet<Coord2D>();
-            foreach (var position in top)
+            used = new List<Coord2D>();
+            foreach (var pos in right)
             {
-                if (used.Contains(position))
+                if (used.Contains(pos))
                     continue;
-
-                var pos = position;
-
-                while (top.Contains(pos))
-                {
-                    used.Add(pos);
-                    pos += (1, 0);
-                }
-                pos = position;
-
-                while (top.Contains(pos))
-                {
-                    used.Add(pos);
-                    pos -= (1, 0);
-                }
+                var side = FindSide(pos, right, [(0, 1), (0, -1)]);
+                used.AddRange(side);
                 sides++;
             }
 
-            used = new HashSet<Coord2D>();
-            foreach (var position in bottom)
+            used = new List<Coord2D>();
+            foreach (var pos in top)
             {
-                if (used.Contains(position))
+                if (used.Contains(pos))
                     continue;
-
-                var pos = position;
-
-                while (bottom.Contains(pos))
-                {
-                    used.Add(pos);
-                    pos += (1, 0);
-                }
-                pos = position;
-
-                while (bottom.Contains(pos))
-                {
-                    used.Add(pos);
-                    pos -= (1, 0);
-                }
+                var side = FindSide(pos, top, [(1, 0), (-1, 0)]);
+                used.AddRange(side);
                 sides++;
             }
 
+            used = new List<Coord2D>();
+            foreach (var pos in bottom)
+            {
+                if (used.Contains(pos))
+                    continue;
+                var side = FindSide(pos, bottom, [(1, 0), (-1, 0)]);
+                used.AddRange(side);
+                sides++;
+            }
+            
             return sides;
         }
-        
 
         int CheckAreas(int part =1)
         {
