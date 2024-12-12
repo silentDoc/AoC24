@@ -13,51 +13,27 @@ namespace AoC24.Day12
         public void ParseInput(List<string> input)
             => input.Index().ToList().ForEach(line => ParseLine(line.Item, line.Index));
 
-        HashSet<Coord2D> DiscoverArea(Coord2D startPos)
+        HashSet<Coord2D> FindConnectedPositions(Coord2D startPos, HashSet<Coord2D> allowedPositions, HashSet<Coord2D> allowedDirs)
         {
-            HashSet<Coord2D> area = new();
+            HashSet<Coord2D> positionSet = new();
             Queue<Coord2D> active = new();
-            active.Enqueue(startPos);
             char farmChar = map[startPos];
-
-            while (active.Any())
-            {
-                var pos = active.Dequeue();
-
-                if (area.Contains(pos))
-                    continue;
-                
-                area.Add(pos);
-
-                var neighs = pos.GetNeighbors().Where(x => map.ContainsKey(x) && !area.Contains(x) && map[x] == farmChar).ToList();
-                foreach (var neigh in neighs)
-                    active.Enqueue(neigh);
-            }
-            return area;
-        }
-
-        // Modified BFS to search only on a list of allowed directions. It finds connected blocks on these
-        // directions (sides), restricted to a set of positions
-        List<Coord2D> FindSide(Coord2D startPos, List<Coord2D> sidePositions,  List<Coord2D> allowedDirs)
-        {
-            HashSet<Coord2D> side = new();
-            Queue<Coord2D> active = new();
             active.Enqueue(startPos);
 
             while (active.Any())
             {
                 var pos = active.Dequeue();
 
-                if (side.Contains(pos))
+                if (positionSet.Contains(pos))
                     continue;
 
-                side.Add(pos);
-                var neighs = allowedDirs.Select(x => pos + x).Where(x => sidePositions.Contains(x)).ToList();
+                positionSet.Add(pos);
+                var neighs = allowedDirs.Select(x => pos + x).Where(x => allowedPositions.Contains(x) && map[x] == farmChar).ToList();
 
                 foreach (var neigh in neighs)
                     active.Enqueue(neigh);
             }
-            return side.ToList();
+            return positionSet;
         }
 
         int FindPerimeter(HashSet<Coord2D> area)
@@ -81,15 +57,15 @@ namespace AoC24.Day12
 
             for (int i = 0; i < sideSets.Count; i++)
             {
-                var sideSet = sideSets[i];
-                var allowed = allowedDirs[i];
+                var sideSet = sideSets[i].ToHashSet();
+                var allowed = allowedDirs[i].ToHashSet();
 
                 List<Coord2D> used = new List<Coord2D>();
                 foreach (var pos in sideSet)
                 {
                     if (used.Contains(pos))
                         continue;
-                    var side = FindSide(pos, sideSet, allowed);
+                    var side = FindConnectedPositions(pos, sideSet, allowed);
                     used.AddRange(side);
                     sides++;
                 }
@@ -101,6 +77,8 @@ namespace AoC24.Day12
         {
             int maxX = map.Keys.Max(k => k.x);
             int maxY = map.Keys.Max(k => k.y);
+            var allowedPositions = map.Keys.ToHashSet();
+            var allowedDirections = new Coord2D(0, 0).GetNeighbors().ToHashSet(); 
 
             for (int x = 0; x <= maxX; x++)
                 for (int y = 0; y <= maxY; y++)
@@ -110,7 +88,7 @@ namespace AoC24.Day12
                     if (areas.Any(a => a.Contains(pos)))
                         continue;
 
-                    var newArea = DiscoverArea(pos);
+                    var newArea = FindConnectedPositions(pos, allowedPositions, allowedDirections);
                     areas.Add(newArea);
                 }
 
