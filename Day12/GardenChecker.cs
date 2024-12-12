@@ -40,10 +40,120 @@ namespace AoC24.Day12
         }
 
 
-        int GetAreaPerimeter(HashSet<Coord2D> area)
+        int FindPerimeter(HashSet<Coord2D> area)
             => area.Sum(x => 4 - x.GetNeighbors().Where(n => area.Contains(n)).Count());
 
-        int CheckAreas()
+        int FindSides(HashSet<Coord2D> area)
+        {
+            int maxX = map.Keys.Max(k => k.x);
+            int maxY = map.Keys.Max(k => k.y);
+
+            var perimeterBlocks = area.Where(a => a.GetNeighbors().Where(n => area.Contains(n)).Count() <4).OrderBy(k => k.y).ThenBy(k => k.x).ToList();
+
+            // sides
+            var left = perimeterBlocks.Where(k => !area.Contains(k - (1, 0))).ToList();
+            var right = perimeterBlocks.Where(k => !area.Contains(k + (1, 0))).ToList();
+            var top = perimeterBlocks.Where(k => !area.Contains(k - (0,1))).ToList();
+            var bottom = perimeterBlocks.Where(k => !area.Contains(k + (0, 1))).ToList();
+
+            // left sides
+            int sides = 0;
+            HashSet<Coord2D> used = new HashSet<Coord2D>();
+            foreach (var position in left)
+            {
+                if (used.Contains(position))
+                    continue;
+                
+                var pos = position;
+
+                while (left.Contains(pos))
+                {
+                    used.Add(pos);
+                    pos += (0, 1);
+                }
+                pos = position;
+                
+                while (left.Contains(pos))
+                {
+                    used.Add(pos);
+                    pos -= (0, 1);
+                }
+                sides++;
+            }
+            used = new HashSet<Coord2D>();
+            foreach (var position in right)
+            {
+                if (used.Contains(position))
+                    continue;
+
+                var pos = position;
+
+                while (right.Contains(pos))
+                {
+                    used.Add(pos);
+                    pos += (0, 1);
+                }
+                pos = position;
+
+                while (right.Contains(pos))
+                {
+                    used.Add(pos);
+                    pos -= (0, 1);
+                }
+                sides++;
+            }
+
+            used = new HashSet<Coord2D>();
+            foreach (var position in top)
+            {
+                if (used.Contains(position))
+                    continue;
+
+                var pos = position;
+
+                while (top.Contains(pos))
+                {
+                    used.Add(pos);
+                    pos += (1, 0);
+                }
+                pos = position;
+
+                while (top.Contains(pos))
+                {
+                    used.Add(pos);
+                    pos -= (1, 0);
+                }
+                sides++;
+            }
+
+            used = new HashSet<Coord2D>();
+            foreach (var position in bottom)
+            {
+                if (used.Contains(position))
+                    continue;
+
+                var pos = position;
+
+                while (bottom.Contains(pos))
+                {
+                    used.Add(pos);
+                    pos += (1, 0);
+                }
+                pos = position;
+
+                while (bottom.Contains(pos))
+                {
+                    used.Add(pos);
+                    pos -= (1, 0);
+                }
+                sides++;
+            }
+
+            return sides;
+        }
+        
+
+        int CheckAreas(int part =1)
         {
             int maxX = map.Keys.Max(k => k.x);
             int maxY = map.Keys.Max(k => k.y);
@@ -60,13 +170,11 @@ namespace AoC24.Day12
                     areas.Add(newArea);
                 }
 
-            var positions = areas.SelectMany(x => x).ToList();
-            var missing = map.Keys.Where(x => !positions.Contains(x)).ToList();
-
-            return areas.Select(a => a.Count() * GetAreaPerimeter(a)).Sum();
+            return part == 1 ? areas.Select(a => a.Count() * FindPerimeter(a)).Sum()
+                             : areas.Select(a => a.Count() * FindSides(a)).Sum();
         }
 
         public int Solve(int part = 1)
-            => CheckAreas();
+            => CheckAreas(part);
     }
 }
