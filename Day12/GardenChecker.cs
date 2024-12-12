@@ -68,7 +68,6 @@ namespace AoC24.Day12
             int maxX = map.Keys.Max(k => k.x);
             int maxY = map.Keys.Max(k => k.y);
             var sides = 0;
-
             var perimeterBlocks = area.Where(a => a.GetNeighbors().Where(n => area.Contains(n)).Count() < 4).OrderBy(k => k.y).ThenBy(k => k.x).ToList();
 
             // sides
@@ -77,46 +76,24 @@ namespace AoC24.Day12
             var top = perimeterBlocks.Where(k => !area.Contains(k - (0, 1))).ToList();
             var bottom = perimeterBlocks.Where(k => !area.Contains(k + (0, 1))).ToList();
 
-            List<Coord2D> used = new List<Coord2D>();
-            foreach (var pos in left)
-            {
-                if (used.Contains(pos))
-                    continue;
-                var side = FindSide(pos, left, [(0, 1), (0, -1)]);
-                used.AddRange(side);
-                sides++;
-            }
+            List<List<Coord2D>> sideSets = [left, right, top, bottom];
+            List<List<Coord2D>> allowedDirs = [[(0, 1), (0, -1)], [(0, 1), (0, -1)], [(1, 0), (-1, 0)], [(1, 0), (-1, 0)]];
 
-            used = new List<Coord2D>();
-            foreach (var pos in right)
+            for (int i = 0; i < sideSets.Count; i++)
             {
-                if (used.Contains(pos))
-                    continue;
-                var side = FindSide(pos, right, [(0, 1), (0, -1)]);
-                used.AddRange(side);
-                sides++;
-            }
+                var sideSet = sideSets[i];
+                var allowed = allowedDirs[i];
 
-            used = new List<Coord2D>();
-            foreach (var pos in top)
-            {
-                if (used.Contains(pos))
-                    continue;
-                var side = FindSide(pos, top, [(1, 0), (-1, 0)]);
-                used.AddRange(side);
-                sides++;
+                List<Coord2D> used = new List<Coord2D>();
+                foreach (var pos in sideSet)
+                {
+                    if (used.Contains(pos))
+                        continue;
+                    var side = FindSide(pos, sideSet, allowed);
+                    used.AddRange(side);
+                    sides++;
+                }
             }
-
-            used = new List<Coord2D>();
-            foreach (var pos in bottom)
-            {
-                if (used.Contains(pos))
-                    continue;
-                var side = FindSide(pos, bottom, [(1, 0), (-1, 0)]);
-                used.AddRange(side);
-                sides++;
-            }
-            
             return sides;
         }
 
