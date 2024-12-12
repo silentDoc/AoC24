@@ -1,4 +1,8 @@
-﻿
+﻿<p align="center">
+<img src="Day07.jpeg" style="width:540px" alt="Bridge Repair"/>
+</p>
+
+
 ## --- Day 7: Bridge Repair ---
 
 The Historians take you to a familiar  [rope bridge](https://adventofcode.com/2022/day/9)  over a river in the middle of a jungle. The Chief isn't on this side of the bridge, though; maybe he's on the other side?

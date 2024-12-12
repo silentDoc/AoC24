@@ -1,4 +1,7 @@
-﻿
+﻿<p align="center">
+<img src="Day06.jpeg" style="width:540px" alt="Guard Gallivant"/>
+</p>
+
 ## --- Day 6: Guard Gallivant ---
 
 The Historians use their fancy  [device](https://adventofcode.com/2024/day/4)  again, this time to whisk you all away to the North Pole prototype suit manufacturing lab... in the year  [1518](https://adventofcode.com/2018/day/5)! It turns out that having direct access to history is very convenient for a group of historians.

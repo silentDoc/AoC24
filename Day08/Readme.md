@@ -1,4 +1,8 @@
-﻿
+﻿<p align="center">
+<img src="Day08.jpeg" style="width:540px" alt="Resonant Collinearity"/>
+</p>
+
+
 ## --- Day 8: Resonant Collinearity ---
 
 You find yourselves on the  [roof](https://adventofcode.com/2016/day/25)  of a top-secret Easter Bunny installation.

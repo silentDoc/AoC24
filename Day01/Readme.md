@@ -1,4 +1,8 @@
-﻿## --- Day 1: Historian Hysteria ---
+﻿<p align="center">
+<img src="Day01.jpeg" style="width:540px" alt="Historian Hysteria"/>
+</p>
+
+## --- Day 1: Historian Hysteria ---
 
 The  _Chief Historian_  is always present for the big Christmas sleigh launch, but nobody has seen him in months! Last anyone heard, he was visiting locations that are historically significant to the North Pole; a group of Senior Historians has asked you to accompany them as they check the places they think he was most likely to visit.
 

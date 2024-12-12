@@ -1,4 +1,7 @@
-﻿
+﻿<p align="center">
+<img src="Day10.jpeg" style="width:540px" alt="Hoof it"/>
+</p>
+
 ## --- Day 10: Hoof It ---
 
 You all arrive at a  [Lava Production Facility](https://adventofcode.com/2023/day/15)  on a floating island in the sky. As the others begin to search the massive industrial complex, you feel a small nose boop your leg and look down to discover a  reindeer  wearing a hard hat.

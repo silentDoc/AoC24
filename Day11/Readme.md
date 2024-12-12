@@ -1,4 +1,7 @@
-﻿
+﻿<p align="center">
+<img src="Day11.jpeg" style="width:540px" alt="Plutonian Pebbles"/>
+</p>
+
 ## --- Day 11: Plutonian Pebbles ---
 
 The ancient civilization on  [Pluto](https://adventofcode.com/2019/day/20)  was known for its ability to manipulate spacetime, and while The Historians explore their infinite corridors, you've noticed a strange set of physics-defying stones.

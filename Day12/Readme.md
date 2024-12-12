@@ -1,3 +1,7 @@
+<p align="center">
+<img src="Day12.jpeg" style="width:540px" alt="Garden Groups" />
+</p>
+
 ## --- Day 12: Garden Groups ---
 
 
