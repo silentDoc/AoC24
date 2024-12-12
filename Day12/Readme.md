@@ -164,7 +164,3 @@ The larger example from before now has the following updated prices:
 Adding these together produces its new total price of  `_1206_`.
 
 _What is the new total price of fencing all regions on your map?_
-
-![ElfOnGarden](https://github.com/user-attachments/assets/a281bfd6-4782-423a-b3b0-5ae4727ac78f)
-
-(Borrowing the idea of generated images from [encse](https://github.com/encse) 
