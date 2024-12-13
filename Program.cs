@@ -31,6 +31,7 @@ namespace AoC24
                 10 => day10(input, part),
                 11 => day11(input, part),
                 12 => day12(input, part),
+                13 => day13(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -132,6 +133,14 @@ namespace AoC24
             Day12.GardenChecker daySolver = new();
             daySolver.ParseInput(lines);
             return daySolver.Solve(part).ToString();
+        }
+
+        static string day13(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            //Day13 daySolver = new();
+            //daySolver.ParseInput(lines);
+            return ""; // daySolver.Solve(part).ToString();
         }
     }
 }
