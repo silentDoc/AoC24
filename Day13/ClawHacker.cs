@@ -2,8 +2,7 @@
 
 namespace AoC24.Day13
 {
-
-    record ClawMachine(Coord2D buttonA, Coord2D buttonB, Coord2D prize);
+    record ClawMachine(Coord2DL buttonA, Coord2DL buttonB, Coord2DL prize);
 
     internal class ClawHacker
     {
@@ -15,11 +14,11 @@ namespace AoC24.Day13
             var butBStr = section[1].Replace("Button B: X", "").Replace("Y", "");
             var prizeStr = section[2].Replace("Prize: X=", "").Replace("Y=", "");
 
-            var vA = butAStr.Split(",").Select(int.Parse).ToList();
-            var vB = butBStr.Split(",").Select(int.Parse).ToList();
-            var vP = prizeStr.Split(",").Select(int.Parse).ToList();
+            var vA = butAStr.Split(",").Select(long.Parse).ToList();
+            var vB = butBStr.Split(",").Select(long.Parse).ToList();
+            var vP = prizeStr.Split(",").Select(long.Parse).ToList();
 
-            return new ClawMachine(new Coord2D(vA[0], vA[1]), new Coord2D(vB[0], vB[1]), new Coord2D(vP[0], vP[1]));
+            return new ClawMachine(new Coord2DL(vA[0], vA[1]), new Coord2DL(vB[0], vB[1]), new Coord2DL(vP[0], vP[1]));
         }
 
         public void ParseInput(List<string> input)
@@ -28,8 +27,9 @@ namespace AoC24.Day13
             sections.ForEach(x => machines.Add(ParseMachine(x)));
         }
 
-        int SolveMachine(ClawMachine m)
+        long SolveMachine(ClawMachine m)
         {
+            // See attached linearAlgebra.jpg to see where this comes from
             double timesB = (double)(m.prize.y * m.buttonA.x - m.buttonA.y * m.prize.x) / (double)(m.buttonA.x * m.buttonB.y - m.buttonA.y * m.buttonB.x);
             double timesA = (double)(m.prize.x - timesB * m.buttonB.x) / (double)m.buttonA.x;
 
@@ -40,13 +40,20 @@ namespace AoC24.Day13
             if (timesA < 0 || timesB < 0)
                 return 0;
 
-            return (int) (timesA * 3 + timesB);
+            return (long) (timesA * 3 + timesB);
         }
      
-        int FindHowManyPrizes()
+        long FindHowManyPrizes()
             => machines.Sum(x => SolveMachine(x));
 
-        public int Solve(int part = 1)
-            => FindHowManyPrizes();
+        long FindHowManyPrizesFarAway()
+        {
+            List<ClawMachine> farAwayMachines = [];
+            machines.ForEach(x => farAwayMachines.Add(new ClawMachine(x.buttonA, x.buttonB, new Coord2DL(x.prize.x + 10000000000000, x.prize.y + 10000000000000))));
+            return farAwayMachines.Sum(x => SolveMachine(x));
+        }
+
+        public long Solve(int part = 1)
+            => part == 1 ? FindHowManyPrizes() : FindHowManyPrizesFarAway();
     }
 }
