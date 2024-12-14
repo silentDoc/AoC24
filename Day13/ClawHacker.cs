@@ -33,11 +33,7 @@ namespace AoC24.Day13
             double timesB = (double)(m.prize.y * m.buttonA.x - m.buttonA.y * m.prize.x) / (double)(m.buttonA.x * m.buttonB.y - m.buttonA.y * m.buttonB.x);
             double timesA = (double)(m.prize.x - timesB * m.buttonB.x) / (double)m.buttonA.x;
 
-            if (timesB != Math.Floor(timesB))
-                return 0;
-            if (timesA != Math.Floor(timesA))
-                return 0;
-            if (timesA < 0 || timesB < 0)
+            if (timesB != Math.Floor(timesB) || timesA != Math.Floor(timesA) || (timesA < 0 || timesB < 0))
                 return 0;
 
             return (long) (timesA * 3 + timesB);
