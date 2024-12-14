@@ -1,3 +1,6 @@
+<p align="center">
+<img src="Day14.jpeg" style="width:540px" alt="Restroom Redoubt" />
+</p>
 
 ## --- Day 14: Restroom Redoubt ---
 
@@ -134,3 +137,9 @@ To determine the safest area, count the  _number of robots in each quadrant_  af
 In this example, the quadrants contain  `1`,  `3`,  `4`, and  `1`  robot. Multiplying these together gives a total  _safety factor_  of  `_12_`.
 
 Predict the motion of the robots in your list within a space which is  `101`  tiles wide and  `103`  tiles tall.  _What will the safety factor be after exactly 100 seconds have elapsed?_
+
+## --- Part Two ---
+
+During the bathroom break, someone notices that these robots seem awfully similar to ones built and used at the North Pole. If they're the same type of robots, they should have a hard-coded  Easter egg: very rarely, most of the robots should arrange themselves into  _a picture of a Christmas tree_.
+
+_What is the fewest number of seconds that must elapse for the robots to display the Easter egg?_
