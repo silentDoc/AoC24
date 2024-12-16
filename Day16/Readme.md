@@ -1,3 +1,6 @@
+<p align="center">
+<img src="Day16.jpeg" style="width:540px" alt="Reindeer Maze" />
+</p>
 
 ## --- Day 16: Reindeer Maze ---
 
