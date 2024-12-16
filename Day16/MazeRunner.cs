@@ -29,13 +29,16 @@ namespace AoC24.Day16
                 (-1, 0) => [Direction.West, Direction.South, Direction.North],   // W -> W, S, N
             };
 
-        int BFS(Coord2D startPos, Coord2D endPos)
+        int BFS(Coord2D startPos, Coord2D endPos, int part = 1)
         {
+            int bestCost = int.MaxValue;
+
             Dictionary<(Coord2D pos, Coord2D facing), int> visitedCosts = new();
-            Queue<(Coord2D pos, Coord2D facing, int cost)> active = new();
+            Queue<(Coord2D pos, Coord2D facing, int cost, List<Coord2D> trail)> active = new();
+            List<(List<Coord2D> trail, int score)> trailsToEnd = new();
 
             char farmChar = map[startPos];
-            active.Enqueue((startPos, Direction.East, 0));
+            active.Enqueue((startPos, Direction.East, 0, [startPos]));
 
             while (active.Any())
             {
@@ -43,13 +46,24 @@ namespace AoC24.Day16
                 var pos = element.pos;
                 var facing = element.facing;
                 var cost = element.cost;
+                var trail = element.trail;
 
+                if (cost > bestCost)
+                    continue;
               
                 if (visitedCosts.ContainsKey((pos, facing)))
-                    if (cost >= visitedCosts[(pos, facing)])
+                    if (cost > visitedCosts[(pos, facing)])
                         continue;
                 
                 visitedCosts[(pos, facing)] = cost;
+
+                if (pos == endPos)
+                {
+                    trailsToEnd.Add(([..trail,pos], cost));
+                    if (cost < bestCost)
+                        bestCost = cost;
+                    continue;
+                }
 
                 var nextFacings = GetNextDirs(facing);
                 var validFacings = nextFacings.Select(k => map.ContainsKey(pos + k) && map[pos + k] != '#').ToList();
@@ -60,22 +74,29 @@ namespace AoC24.Day16
                         continue;
 
                     var costInc = nextFacings[i] == facing ? 1 : 1001;      // 1001 = 1000 to turn and 1 to advance on that direction
-                    active.Enqueue((pos+ nextFacings[i], nextFacings[i], cost + costInc));
+                    List<Coord2D> newTrail = [..trail, pos + nextFacings[i]];
+                    active.Enqueue((pos+ nextFacings[i], nextFacings[i], cost + costInc, newTrail));
                 }
+            }
+
+            if (part == 2)
+            {
+                var positions = trailsToEnd.Where(t => t.score == bestCost).SelectMany(x => x.trail).ToHashSet();
+                return positions.Count();
             }
 
             var endPositionKeys = visitedCosts.Keys.Where(x => x.pos == endPos);
             return endPositionKeys.Select(x => visitedCosts[x]).Min();
         }
 
-        int SolveMaze()
+        int SolveMaze(int part)
         {
             var start = map.Keys.First(x => map[x] == 'S');
             var end = map.Keys.First(x => map[x] == 'E');
-            return BFS(start, end);
+            return BFS(start, end, part);
         }
 
         public int Solve(int part = 1)
-            => SolveMaze();
+            => SolveMaze(part);
     }
 }
