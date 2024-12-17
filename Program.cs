@@ -6,9 +6,9 @@ namespace AoC24
     {
         static void Main(string[] args)
         {
-            int day = 16;
-            int part = 2;
-            bool test = false;
+            int day = 17;
+            int part = 1;
+            bool test = !false;
             int testNum = 1;
 
             string input = "./Input/day" + day.ToString("00");
@@ -35,6 +35,7 @@ namespace AoC24
                 14 => day14(input, part),
                 15 => day15(input, part),
                 16 => day16(input, part),
+                17 => day17(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -168,6 +169,14 @@ namespace AoC24
             Day16.MazeRunner daySolver = new();
             daySolver.ParseInput(lines);
             return daySolver.Solve(part).ToString();
+        }
+
+        static string day17(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            //Day17 daySolver = new();
+            //daySolver.ParseInput(lines);
+            return ""; // daySolver.Solve(part).ToString();
         }
     }
 }
