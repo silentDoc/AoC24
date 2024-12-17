@@ -1,3 +1,6 @@
+<p align="center">
+<img src="Day17.jpeg" style="width:540px" alt="Chronospatial Computer" />
+</p>
 
 ## --- Day 17: Chronospatial Computer ---
 
