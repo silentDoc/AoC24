@@ -27,6 +27,7 @@ namespace AoC24.Day16
                 (1,  0) => [Direction.East,  Direction.North, Direction.South],    // E -> E, N, S
                 (0,  1) => [Direction.South, Direction.East,  Direction.West],     // S -> S, E, W
                 (-1, 0) => [Direction.West,  Direction.South, Direction.North],   // W -> W, S, N
+                (_ , _) => throw new Exception("Unknown facing")
             };
 
         int SolveMap(int part = 1)
