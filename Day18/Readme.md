@@ -1,3 +1,6 @@
+<p align="center">
+<img src="Day18.jpeg" style="width:540px" alt="RAM Run" />
+</p>
 
 ## --- Day 18: RAM Run ---
 

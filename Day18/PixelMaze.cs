@@ -1,5 +1,4 @@
 ﻿using AoC24.Common;
-using System.Text;
 
 namespace AoC24.Day18
 {
@@ -8,7 +7,7 @@ namespace AoC24.Day18
         Dictionary<Coord2D, char> map = new();
         List<Coord2D> fallingPixels   = new();
         int maxDim = 70;
-        //int maxDim = 6;
+        //int maxDim = 6;   // For test case
 
         public void ParseInput(List<string> input)
            => input.ForEach(ParseLine);
@@ -19,31 +18,20 @@ namespace AoC24.Day18
             fallingPixels.Add((v[0], v[1]));
         }
 
-        void Display()
-        {
-            for (int i = 0; i <= maxDim; i++)
-            {
-                StringBuilder sb = new("");
-                for (int j = 0; j <= maxDim; j++)
-                    sb.Append(map[(i, j)]);
-
-                Console.WriteLine(sb.ToString());
-            }
-        }
-
-        int SolveMaze(int numBlocks)
+        void PrepMap(int numBlocks)
         {
             // Prep the map
             for (int i = 0; i <= maxDim; i++)
                 for (int j = 0; j <= maxDim; j++)
                     map[(i, j)] = '.';
-            
-            
-            for(int i = 0; i<numBlocks; i++)
+
+            for (int i = 0; i < numBlocks; i++)
                 map[fallingPixels[i]] = '#';
+        }
 
-            Display();
-
+        int SolveMaze(int numBlocks)
+        {
+            PrepMap(numBlocks);
             HashSet<Coord2D> visited = new();
             Queue<(Coord2D pos, int cost)> active = new();
 
@@ -73,7 +61,15 @@ namespace AoC24.Day18
             return -1;
         }
 
-        public int Solve(int part = 1)
-            => SolveMaze(1024);
+        string FindBlockingPixel()
+        {
+            for (int i = 1024; i < fallingPixels.Count; i++)
+                if (SolveMaze(i) == -1)
+                    return fallingPixels[i-1].ToString();
+            return  "";
+        }
+
+        public string Solve(int part = 1)
+            => part == 1 ? SolveMaze(1024).ToString() : FindBlockingPixel();
     }
 }
