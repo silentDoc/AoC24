@@ -159,7 +159,6 @@
                 foreach (var num in candidates)
                 {
                     var attempts = numsToTry.Select(x => num * 8 + x).ToList();
-                    var results = attempts.Select(x => Disassembly(x)).ToList();
                     var valid = attempts.Where(y => target.SequenceEqual(Disassembly(y))).ToList();
                     newCandidates.AddRange(valid);
                 }
