@@ -2,27 +2,27 @@
 {
     internal class TowelDesigner
     {
-        List<string> onsens = [];
+        List<string> designs = [];
         List<string> patterns = [];
         Dictionary<string, long> memoize = new() { [""] = 1 };
 
         public  void ParseInput(List<string> input)
         {
             patterns = input[0].Split(", ").ToList();
-            onsens = input[2..];
+            designs = input[2..];
         }
 
-        long FindWay(string remainingOnsen)
+        long FindWay(string remainingDesign)
         {
-            if (memoize.ContainsKey(remainingOnsen))
-                return memoize[remainingOnsen];
+            if (memoize.ContainsKey(remainingDesign))
+                return memoize[remainingDesign];
 
-            memoize[remainingOnsen] = patterns.Where(x => remainingOnsen.StartsWith(x))
-                                              .Sum(y => FindWay(remainingOnsen.Substring(y.Length)));
-            return memoize[remainingOnsen];
+            memoize[remainingDesign] = patterns.Where(x => remainingDesign.StartsWith(x))
+                                              .Sum(y => FindWay(remainingDesign.Substring(y.Length)));
+            return memoize[remainingDesign];
         }
 
         public long Solve(int part = 1)
-            => part == 1 ? onsens.Count(x => FindWay(x)>0) : onsens.Sum(x => FindWay(x));
+            => part == 1 ? designs.Count(x => FindWay(x)>0) : designs.Sum(x => FindWay(x));
     }
 }
