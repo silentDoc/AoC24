@@ -22,7 +22,7 @@
             return memoize[remainingOnsen];
         }
 
-        public int Solve(int part = 1)
-            => onsens.Count(x => FindWay(x)>0);
+        public long Solve(int part = 1)
+            => part == 1 ? onsens.Count(x => FindWay(x)>0) : onsens.Sum(x => FindWay(x));
     }
 }
