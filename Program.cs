@@ -187,5 +187,13 @@ namespace AoC24
             daySolver.ParseInput(lines);
             return daySolver.Solve(part).ToString();
         }
+
+        static string day19(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            //Day19 daySolver = new();
+            //daySolver.ParseInput(lines);
+            return ""; // daySolver.Solve(part).ToString();
+        }
     }
 }
