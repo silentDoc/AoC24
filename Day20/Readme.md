@@ -1,3 +1,6 @@
+<p align="center">
+<img src="Day20.jpeg" style="width:540px" alt="Race Condition" />
+</p>
 
 ## --- Day 20: Race Condition ---
 

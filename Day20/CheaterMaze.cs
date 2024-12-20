@@ -1,5 +1,4 @@
 ﻿using AoC24.Common;
-using System.Runtime.Intrinsics.Arm;
 
 namespace AoC24.Day20
 {
