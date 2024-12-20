@@ -14,12 +14,9 @@ namespace AoC24.Day20
 
         int SolveMaze(int part = 1)
         {
-            bool solved = false;
-            List<Coord2D> finalTrail = [];
-            int finalCost = -1;
-
-            HashSet<Coord2D> visited = new();
-            Queue<(Coord2D pos, int cost, List<Coord2D> trail)> active = new();
+            List<Coord2D> path = [];
+            Dictionary<Coord2D, int> costsLookup = new();
+            Queue<(Coord2D pos, int cost, List<Coord2D> path)> active = new();
 
             Coord2D current = map.Keys.First(x => map[x] == 'S');
             Coord2D endPos = map.Keys.First(x => map[x] == 'E');
@@ -35,46 +32,33 @@ namespace AoC24.Day20
                 var element = active.Dequeue();
                 var currentPos = element.pos;
                 var currentCost = element.cost;
-                var currentTrail = element.trail;
+                path = element.path;
 
-                if (visited.Contains(currentPos))
+                if (costsLookup.ContainsKey(currentPos))
                     continue;
 
-                visited.Add(currentPos);
+                costsLookup[currentPos] = currentCost;
 
                 if (currentPos == endPos)
-                {
-                    finalCost = currentCost;
-                    finalTrail = currentTrail;
-                    solved = true;
                     break;
-                }
 
-                var neighs = currentPos.GetNeighbors().Where(x => map.ContainsKey(x) && map[x] != '#' && !visited.Contains(x)).ToList();
+                var neighs = currentPos.GetNeighbors().Where(x => map.ContainsKey(x) && map[x] != '#' && !costsLookup.ContainsKey(x)).ToList();
 
                 foreach (var neigh in neighs)
-                    active.Enqueue((neigh, currentCost + neigh.Manhattan(currentPos), [..currentTrail, neigh]));
+                    active.Enqueue((neigh, currentCost + neigh.Manhattan(currentPos), [..path, neigh]));
             }
-            
-            if(!solved)
-                return -1;
 
             // We have the trail, we have to see how many cheats in the trail save us cost. The index of each trail position its is cost
             // The first approach on part2 took more than 30 minutes in my machine -- I will refactor to accelerate that stuff
             // Update : I did adding the lookup dictionary and cutting the candidates to explore, and running a parallel for. Now it flies
             Dictionary<int, int> savings = new();
-
-            Dictionary<Coord2D, int> costsLookup = new();
-            for(int i=0; i<finalTrail.Count; i++)
-                costsLookup[finalTrail[i]] = i;
-
             object lockObj = new();
 
-            Parallel.For(0, finalTrail.Count, (i, state) =>
+            Parallel.For(0, path.Count, (i, state) =>
             {
-                List<Coord2D> explore = part == 1 ? finalTrail : finalTrail[(i + 1)..];
+                List<Coord2D> explore = part == 1 ? path : path[(i + 1)..];
 
-                var trailPos = finalTrail[i];
+                var trailPos = path[i];
                 var cheatPos = part == 1 ? trailPos.GetNeighbors(2).Where(x => costsLookup.ContainsKey(x)).ToHashSet()
                                          : explore.Where(x => trailPos.Manhattan(x) <= 20).ToHashSet();
                 
