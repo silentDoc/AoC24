@@ -1,4 +1,6 @@
-﻿namespace AoC24.Common
+﻿using System.Collections.Generic;
+
+namespace AoC24.Common
 {
     public class Coord2D : IEquatable<Coord2D>
     {
@@ -64,35 +66,35 @@
         public double VectorModule
             => Math.Sqrt( x*x + y*y );
 
-        public IEnumerable<Coord2D> GetNeighbors(Arrangement arrange = Arrangement.UpRightDownLeft)
+        public IEnumerable<Coord2D> GetNeighbors(int dist = 1, Arrangement arrange = Arrangement.UpRightDownLeft)
         {
             if (arrange == Arrangement.UpRightDownLeft)
             {
                 // Up - Right - Down - Left
-                yield return new Coord2D(x, y - 1);
-                yield return new Coord2D(x + 1, y);
-                yield return new Coord2D(x, y + 1);
-                yield return new Coord2D(x - 1, y);
+                yield return new Coord2D(x, y - dist);
+                yield return new Coord2D(x + dist, y);
+                yield return new Coord2D(x, y + dist);
+                yield return new Coord2D(x - dist, y);
             }
             else
             {
-                yield return new Coord2D(x, y - 1);
-                yield return new Coord2D(x, y + 1);
-                yield return new Coord2D(x - 1, y);
-                yield return new Coord2D(x + 1, y);
+                yield return new Coord2D(x, y - dist);
+                yield return new Coord2D(x, y + dist);
+                yield return new Coord2D(x - dist, y);
+                yield return new Coord2D(x + dist, y);
             }
         }
 
-        public IEnumerable<Coord2D> GetNeighbors8()
+        public IEnumerable<Coord2D> GetNeighbors8(int dist = 1)
         {
-            yield return new Coord2D(x + 1, y);
-            yield return new Coord2D(x + 1, y - 1);
-            yield return new Coord2D(x, y - 1);
-            yield return new Coord2D(x - 1, y - 1);
-            yield return new Coord2D(x - 1, y);
-            yield return new Coord2D(x - 1, y + 1);
-            yield return new Coord2D(x, y + 1);
-            yield return new Coord2D(x + 1, y + 1);
+            yield return new Coord2D(x + dist, y);
+            yield return new Coord2D(x + dist, y - 1);
+            yield return new Coord2D(x, y - dist);
+            yield return new Coord2D(x - dist, y - dist);
+            yield return new Coord2D(x - dist, y);
+            yield return new Coord2D(x - dist, y + dist);
+            yield return new Coord2D(x, y + dist);
+            yield return new Coord2D(x + dist, y + dist);
         }
 
         public override int GetHashCode()
