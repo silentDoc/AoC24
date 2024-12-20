@@ -1,4 +1,5 @@
 ﻿using AoC24.Common;
+using System.Runtime.Intrinsics.Arm;
 
 namespace AoC24.Day20
 {
@@ -61,33 +62,35 @@ namespace AoC24.Day20
 
             // We have the trail, we have to see how many cheats in the trail save us cost. The index of each trail position its is cost
             // The first approach on part2 took more than 30 minutes in my machine -- I will refactor to accelerate that stuff
-            // Update : I did adding the lookup dictionary and cutting the candidates to explore. Now it flies
-            Dictionary<Coord2D, int> costsLookup = new();
+            // Update : I did adding the lookup dictionary and cutting the candidates to explore, and running a parallel for. Now it flies
+            Dictionary<int, int> savings = new();
 
+            Dictionary<Coord2D, int> costsLookup = new();
             for(int i=0; i<finalTrail.Count; i++)
                 costsLookup[finalTrail[i]] = i;
 
-            Dictionary<int, int> savings = new();
-            for (int i = 0; i < finalTrail.Count; i++)
+            object lockObj = new();
+
+            Parallel.For(0, finalTrail.Count, (i, state) =>
             {
-                // This boost is seen in part 2, reducing the candidates every time. For part 1 is not worth is as there are always 4 candidates only
-                List<Coord2D> explore = part == 1 ? finalTrail : finalTrail[(i+1)..];
+                List<Coord2D> explore = part == 1 ? finalTrail : finalTrail[(i + 1)..];
 
                 var trailPos = finalTrail[i];
                 var cheatPos = part == 1 ? trailPos.GetNeighbors(2).Where(x => costsLookup.ContainsKey(x)).ToHashSet()
                                          : explore.Where(x => trailPos.Manhattan(x) <= 20).ToHashSet();
+                
+                var savedCost = part == 1 ? cheatPos.Select(x => costsLookup[x] - i - 2)
+                                          : cheatPos.Select(x => costsLookup[x] - i - trailPos.Manhattan(x));
 
-                foreach (var cheat in cheatPos)
+                lock (lockObj)
                 {
-                    var saved = part == 1 ? costsLookup[cheat] - i - 2
-                                          : costsLookup[cheat] - i - trailPos.Manhattan(cheat);
-
-                    if (!savings.ContainsKey(saved))
-                        savings[saved] = 1;
-                    else
-                        savings[saved]++;
+                    foreach (var el in savedCost)
+                        if (!savings.ContainsKey(el))
+                            savings[el] = 1;
+                        else
+                            savings[el]++;
                 }
-            }
+            });
 
             return savings.Keys.Where(k => k>=100).Sum(k => savings[k]);
         }
