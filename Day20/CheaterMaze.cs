@@ -12,7 +12,7 @@ namespace AoC24.Day20
         void ParseLine(int row, string line)
             => line.Index().ToList().ForEach(x => map[(x.Index, row)] = x.Item);
 
-        int SolvePart1()
+        int SolveMaze(int part = 1)
         {
             bool solved = false;
             List<Coord2D> finalTrail = [];
@@ -26,7 +26,10 @@ namespace AoC24.Day20
             active.Enqueue((current, 0, [current]));
 
             // We solve the maze first, but we do not cheat - we keep the trail though so we do not have
-            // to run a BFS for every cheating account. 
+            // to run a BFS for every cheating attempt in different positions. 
+            // Another thing I realized is that the puzzle today seems to have only one path from S to E, so 
+            // the best way is indeed to get that trail and work the cheats on the positions afterwards
+            // -- maybe we could even skip the bfs ? 
             while (active.Any())
             {
                 var element = active.Dequeue();
@@ -57,16 +60,28 @@ namespace AoC24.Day20
                 return -1;
 
             // We have the trail, we have to see how many cheats in the trail save us cost. The index of each trail position its is cost
-            Dictionary<int, int> savings = new();
+            // The first approach on part2 took more than 30 minutes in my machine -- I will refactor to accelerate that stuff
+            // Update : I did adding the lookup dictionary and cutting the candidates to explore. Now it flies
+            Dictionary<Coord2D, int> costsLookup = new();
 
+            for(int i=0; i<finalTrail.Count; i++)
+                costsLookup[finalTrail[i]] = i;
+
+            Dictionary<int, int> savings = new();
             for (int i = 0; i < finalTrail.Count; i++)
-            { 
+            {
+                // This boost is seen in part 2, reducing the candidates every time. For part 1 is not worth is as there are always 4 candidates only
+                List<Coord2D> explore = part == 1 ? finalTrail : finalTrail[(i+1)..];
+
                 var trailPos = finalTrail[i];
-                var cheatPos = trailPos.GetNeighbors(2).Where(x => finalTrail.Contains(x) && finalTrail.IndexOf(x) > i).ToList();
+                var cheatPos = part == 1 ? trailPos.GetNeighbors(2).Where(x => costsLookup.ContainsKey(x)).ToHashSet()
+                                         : explore.Where(x => trailPos.Manhattan(x) <= 20).ToHashSet();
 
                 foreach (var cheat in cheatPos)
                 {
-                    var saved = finalTrail.IndexOf(cheat) - i - 2;
+                    var saved = part == 1 ? costsLookup[cheat] - i - 2
+                                          : costsLookup[cheat] - i - trailPos.Manhattan(cheat);
+
                     if (!savings.ContainsKey(saved))
                         savings[saved] = 1;
                     else
@@ -78,6 +93,6 @@ namespace AoC24.Day20
         }
 
         public int Solve(int part = 1)
-            => SolvePart1();
+            => SolveMaze(part);
     }
 }
