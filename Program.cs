@@ -6,8 +6,8 @@ namespace AoC24
     {
         static void Main(string[] args)
         {
-            int day = 20;
-            int part = 2;
+            int day = 21;
+            int part = 1;
             bool test = false;
             int testNum = 0;
 
@@ -210,9 +210,9 @@ namespace AoC24
         static string day21(string input, int part)
         {
             var lines = File.ReadAllLines(input).ToList();
-            //Day21 daySolver = new();
-            //daySolver.ParseInput(lines);
-            return ""; // daySolver.Solve(part).ToString();
+            Day21.KeyPadPusher daySolver = new();
+            daySolver.ParseInput(lines);
+            return daySolver.Solve(part).ToString();
         }
     }
 }
