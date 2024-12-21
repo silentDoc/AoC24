@@ -75,13 +75,12 @@ namespace AoC24.Day21
                                                    { ' ' , (0,3)} , { '0', (1, 3) }, { 'A', (2, 3) } ,
                                                 };
 
-        Dictionary<char, Coord2D> DirPad = new() { { ' ' , (0,0)} , { '^', (1, 0) }, { 'A', (2, 0) } ,
-                                                   { '<' , (0,1)} , { 'v', (1, 1) }, { '>', (2, 1) }    };
-        KeyPad globalDirPad;
+        static Dictionary<char, Coord2D> DirPad = new() { { ' ' , (0,0)} , { '^', (1, 0) }, { 'A', (2, 0) } ,
+                                                          { '<' , (0,1)} , { 'v', (1, 1) }, { '>', (2, 1) }    };
 
-        Dictionary<(string, int), long>  MemoizeSeqs  = new();
-        
         List<string> codes = new();
+        Dictionary<(string, int), long> MemoizeSeqs = new();
+        KeyPad dirPad = new KeyPad(DirPad);         // We make it global to take advantage of the memoization of moves
 
         public void ParseInput(List<string> lines)
             => codes = lines;
@@ -97,7 +96,7 @@ namespace AoC24.Day21
                 return MemoizeSeqs[keyMemo];
 
             // If we do not have it memoized, we have to work it out
-            var nextLevel = globalDirPad.GetMoveSequence(code);
+            var nextLevel = dirPad.GetMoveSequence(code);
             var nextSubSeqs = nextLevel.Split('A').Select(x => x + "A").ToList();
             nextSubSeqs.RemoveAt(nextSubSeqs.Count() - 1);
 
@@ -108,16 +107,12 @@ namespace AoC24.Day21
         long GetComplexity(string code, int levels)
         {
             KeyPad numPad = new(NumPad);
-            KeyPad dirPad = new(DirPad);
-            globalDirPad = new KeyPad(DirPad);
-
             var seq = numPad.GetMoveSequence(code);
             
             // The "A" button has the property of being the END position for each sequence at every level
             // For Part 2, we will break the code into splits of subcodes ending with A and memoize all the levels
-            long length = FindSeqLength(seq, 25);
+            long length = FindSeqLength(seq, levels);
             var  numCode = long.Parse(code.Substring(0, code.Length - 1));
-
             return numCode * length;
         }
 
