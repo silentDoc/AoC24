@@ -1,3 +1,6 @@
+<p align="center">
+<img src="Day21.jpeg" style="width:540px" alt="Keypad Conundrum" />
+</p>
 
 ## --- Day 21: Keypad Conundrum ---
 
