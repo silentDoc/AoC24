@@ -7,6 +7,8 @@ namespace AoC24.Day21
     {
         Coord2D gap;
         Dictionary<char, Coord2D> Keys;
+        Dictionary<(char, char), string> MemoizeMoves = new();
+        // The order of this list is the key to the problem today - Distance from each key to the A key in the direction keypad
         List<(char Char, Coord2D Direction)> Directions = [('<', (-1, 0)), ('v', (0, 1)), ('^', (0, -1)), ('>', (1, 0))];
 
         public KeyPad(Dictionary<char, Coord2D> keyMap)
@@ -29,6 +31,9 @@ namespace AoC24.Day21
 
         public string MoveFromTo(char from, char to)
         {
+            if (MemoizeMoves.ContainsKey((from, to)))
+                return MemoizeMoves[(from, to)];
+
             var sb = new StringBuilder();
             var toPos   = Keys[to];
             var fromPos = Keys[from];
@@ -40,7 +45,9 @@ namespace AoC24.Day21
                 // The trick here is that have the directions SORTED by distance to the A key
                 // we find the first one that take us closer to our target
                 var (dirChar, dir) = Directions[(d++ % Directions.Count)];
-                var amount = dir.x == 0 ? dif.y / dir.y : dif.x / dir.x;
+                
+                // We divide by one, but we keep the sign
+                var amount = dir.x == 0 ? dif.y / dir.y : dif.x / dir.x;    
                 
                 if (amount <= 0)
                     continue;
@@ -54,6 +61,7 @@ namespace AoC24.Day21
                 sb.Append(new string(dirChar, amount));
             }
             sb.Append('A');
+            MemoizeMoves[(from, to)] = sb.ToString();
             return sb.ToString();
         }
     }
@@ -69,55 +77,51 @@ namespace AoC24.Day21
 
         Dictionary<char, Coord2D> DirPad = new() { { ' ' , (0,0)} , { '^', (1, 0) }, { 'A', (2, 0) } ,
                                                    { '<' , (0,1)} , { 'v', (1, 1) }, { '>', (2, 1) }    };
+        KeyPad globalDirPad;
+
+        Dictionary<(string, int), long>  MemoizeSeqs  = new();
+        
         List<string> codes = new();
 
         public void ParseInput(List<string> lines)
             => codes = lines;
 
-        // Left here because this has been handy to find out why a test case was not working for me (379A)
-        string ReverseEngineer(string sequence, Dictionary<char, Coord2D> keypad)
+        // Our recursive method with memoization
+        long FindSeqLength(string code, int level)  
         {
-            Coord2D pos = keypad['A'];
-            StringBuilder sb = new();
+            if (level == 0)
+                return code.Length;
 
-            foreach (var c in sequence)
-            {
-                if (c == 'A')
-                {
-                    var val = keypad.Keys.First(x => keypad[x] == pos);
-                    sb.Append(val);
-                    continue;
-                }
+            var keyMemo = (code, level);
+            if (MemoizeSeqs.ContainsKey(keyMemo))
+                return MemoizeSeqs[keyMemo];
 
-                pos += c switch
-                {
-                    '^' => (0, -1),
-                    'v' => (0, 1),
-                    '<' => (-1, 0),
-                    '>' => (1, 0),
-                    _ => throw new Exception("F")
-                };
-            }
-            return sb.ToString();
+            // If we do not have it memoized, we have to work it out
+            var nextLevel = globalDirPad.GetMoveSequence(code);
+            var nextSubSeqs = nextLevel.Split('A').Select(x => x + "A").ToList();
+            nextSubSeqs.RemoveAt(nextSubSeqs.Count() - 1);
+
+            MemoizeSeqs[keyMemo] = nextSubSeqs.Sum(x => FindSeqLength(x, level - 1));
+            return MemoizeSeqs[keyMemo];
         }
 
-        long GetComplexity(string code)
+        long GetComplexity(string code, int levels)
         {
             KeyPad numPad = new(NumPad);
             KeyPad dirPad = new(DirPad);
+            globalDirPad = new KeyPad(DirPad);
 
-            var seqNumPad = numPad.GetMoveSequence(code);
-            var seqDirPad1 = dirPad.GetMoveSequence(seqNumPad);
-            var seqDirPad2 = dirPad.GetMoveSequence(seqDirPad1);
+            var seq = numPad.GetMoveSequence(code);
+            
+            // The "A" button has the property of being the END position for each sequence at every level
+            // For Part 2, we will break the code into splits of subcodes ending with A and memoize all the levels
+            long length = FindSeqLength(seq, 25);
+            var  numCode = long.Parse(code.Substring(0, code.Length - 1));
 
-            //var minLength = seqDirPad1.Length > seqDirPad2.Length ? seqDirPad2.Length : seqDirPad1.Length;
-            var numCode = long.Parse(code.Substring(0, code.Length - 1));
-
-            return ((long) seqDirPad2.Length) * numCode;
+            return numCode * length;
         }
 
-        public long  Solve(int part = 1)
-            =>codes.Sum(x => GetComplexity(x));
-
+        public long Solve(int part = 1)
+            => part == 1 ? codes.Sum(x => GetComplexity(x, 2)) : codes.Sum(x => GetComplexity(x, 25));
     }
 }

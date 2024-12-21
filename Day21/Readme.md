@@ -109,3 +109,22 @@ The  _complexity_  of a single code (like  `029A`) is equal to the result of mul
 In the above example, complexity of the five codes can be found by calculating  `68 * 29`,  `60 * 980`,  `68 * 179`,  `64 * 456`, and  `64 * 379`. Adding these together produces  `_126384_`.
 
 Find the fewest number of button presses you'll need to perform in order to cause the robot in front of the door to type each code.  _What is the sum of the complexities of the five codes on your list?_
+
+
+## --- Part Two ---
+
+Just as the missing Historian is released, The Historians realize that a  _second_  member of their search party has also been missing  this entire time!
+
+A quick life-form scan reveals the Historian is also trapped in a locked area of the ship. Due to a variety of hazards, robots are once again dispatched, forming another chain of remote control keypads managing robotic-arm-wielding robots.
+
+This time, many more robots are involved. In summary, there are the following keypads:
+
+-   One directional keypad that  _you_  are using.
+-   _25_  directional keypads that  _robots_  are using.
+-   One numeric keypad (on a door) that a  _robot_  is using.
+
+The keypads form a chain, just like before: your directional keypad controls a robot which is typing on a directional keypad which controls a robot which is typing on a directional keypad... and so on, ending with the robot which is typing on the numeric keypad.
+
+The door codes are the same this time around; only the number of robots and directional keypads has changed.
+
+Find the fewest number of button presses you'll need to perform in order to cause the robot in front of the door to type each code.  _What is the sum of the complexities of the five codes on your list?_
