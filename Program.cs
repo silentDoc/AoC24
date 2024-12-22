@@ -6,9 +6,9 @@ namespace AoC24
     {
         static void Main(string[] args)
         {
-            int day = 21;
-            int part = 2;
-            bool test = false;
+            int day = 22;
+            int part = 1;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -40,6 +40,7 @@ namespace AoC24
                 19 => day19(input, part),
                 20 => day20(input, part),
                 21 => day21(input, part),
+                22 => day22(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -213,6 +214,14 @@ namespace AoC24
             Day21.KeyPadPusher daySolver = new();
             daySolver.ParseInput(lines);
             return daySolver.Solve(part).ToString();
+        }
+
+        static string day22(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            // Day22 daySolver = new();
+            // daySolver.ParseInput(lines);
+            return ""; // daySolver.Solve(part).ToString();
         }
     }
 }
