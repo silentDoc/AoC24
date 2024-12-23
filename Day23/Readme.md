@@ -1,4 +1,8 @@
-## \--- Day 23: LAN Party ---
+<p align="center">
+<img src="Day23.jpeg" style="width:540px" alt="LAN Party" />
+</p>
+
+## --- Day 23: LAN Party ---
 
 As The Historians wander around a secure area at Easter Bunny HQ, you come across posters for a [LAN party](https://en.wikipedia.org/wiki/LAN_party) scheduled for today! Maybe you can find it; you connect to a nearby [datalink port](https://adventofcode.com/2016/day/9) and download a map of the local network (your puzzle input).
 
@@ -73,3 +77,24 @@ td,wh,yn
 ```
 
 Find all the sets of three inter-connected computers. _How many contain at least one computer with a name that starts with `t`?_
+
+## --- Part Two ---
+
+There are still way too many results to go through them all. You'll have to find the LAN party another way and go there yourself.
+
+Since it doesn't seem like any employees are around, you figure they must all be at the LAN party. If that's true, the LAN party will be the _largest set of computers that are all connected to each other_. That is, for each computer at the LAN party, that computer will have a connection to every other computer at the LAN party.
+
+In the above example, the largest set of computers that are all connected to each other is made up of `co`, `de`, `ka`, and `ta`. Each computer in this set has a connection to every other computer in the set:
+
+```
+ka-co
+ta-co
+de-co
+ta-ka
+de-ta
+ka-de
+```
+
+The LAN party posters say that the _password_ to get into the LAN party is the name of every computer at the LAN party, sorted alphabetically, then joined together with commas. (The people running the LAN party are clearly a bunch of nerds.) In this example, the password would be `_co,de,ka,ta_`.
+
+_What is the password to get into the LAN party?_
