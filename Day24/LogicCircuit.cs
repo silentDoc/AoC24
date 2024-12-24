@@ -69,11 +69,40 @@ namespace AoC24.Day24
             var values = outputWires.Select(x => allNodes[x].GetValue(allNodes)).ToList();
             var binaryString = string.Concat(values);
             return Convert.ToInt64(binaryString, 2);
-
         }
 
-        public long Solve(int part = 1)
-            => FindOutput();
+        string FindWiresToSwap()
+        {
+            // Generate something I can visualize with Dot
+            var xPins = allNodes.Keys.Where(k => k.StartsWith("x")).ToList();
+            var yPins = allNodes.Keys.Where(k => k.StartsWith("y")).ToList();
+
+            var opNodes = allNodes.Keys.Where(k => !k.StartsWith("x") && !k.StartsWith("y")).ToList();
+
+            List<string> dotSrc = new();
+
+            dotSrc.Add("digraph G {");
+            foreach (var k in opNodes)
+            {
+                var n = allNodes[k];
+                var op = (n.Src1 + "_" + n.Op + "_" + n.Src2);
+                dotSrc.Add(n.Src1 + " -> " + op + " -> " + n.Id);
+                dotSrc.Add(n.Src2 + " -> " + op);
+                dotSrc.Add(op + "{shape=box}");
+            }
+            dotSrc.Add("}");
+
+            // We have the graph in fullGraph to copypaste and visualize with Dot/GraphViz
+            // so we can at least start looking for what to change
+            var fullGraph = string.Join('\n', dotSrc);  
+
+
+
+            return "";
+        }
+
+        public string Solve(int part = 1)
+            => part == 1 ? FindOutput().ToString() : FindWiresToSwap();
         
     }
 }
