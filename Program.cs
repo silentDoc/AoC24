@@ -6,9 +6,9 @@ namespace AoC24
     {
         static void Main(string[] args)
         {
-            int day = 23;
-            int part = 2;
-            bool test = false;
+            int day = 24;
+            int part = 1;
+            bool test = !false;
             int testNum = 0;
 
             string input = "./Input/day" + day.ToString("00");
@@ -42,6 +42,7 @@ namespace AoC24
                 21 => day21(input, part),
                 22 => day22(input, part),
                 23 => day23(input, part),
+                24 => day24(input, part),
                 _ => throw new ArgumentException("Wrong day number - unimplemented")
             };
             st.Stop();
@@ -231,6 +232,14 @@ namespace AoC24
             Day23.LanParty daySolver = new();
             daySolver.ParseInput(lines);
             return daySolver.Solve(part).ToString();
+        }
+
+        static string day24(string input, int part)
+        {
+            var lines = File.ReadAllLines(input).ToList();
+            //Day24 daySolver = new();
+            //daySolver.ParseInput(lines);
+            return ""; // daySolver.Solve(part).ToString();
         }
     }
 }
