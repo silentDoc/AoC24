@@ -83,12 +83,11 @@ namespace AoC24.Day24
         Node? FindNode(string src, string op)
             => allNodes.Values.Where(n => (n.Src1 == src || n.Src2 == src) && n.Op == op).FirstOrDefault();
 
-        string FindWiresToSwap()
+        void DumpCircuit(string fileName)
         {
-            // Generate something I can visualize with Dot
+            // Generates a DOT file that can be open with GraphViz or Gephi
             var xPins = allNodes.Keys.Where(k => k.StartsWith("x")).ToList();
             var yPins = allNodes.Keys.Where(k => k.StartsWith("y")).ToList();
-
             var opNodes = allNodes.Keys.Where(k => !k.StartsWith("x") && !k.StartsWith("y")).ToList();
 
             List<string> dotSrc = new();
@@ -104,7 +103,7 @@ namespace AoC24.Day24
                     "OR" => "green",
                     "XOR" => "cyan",
                 };
-                dotSrc.Add(op + " [shape=box, style=filled, color=" + color +"]");
+                dotSrc.Add(op + " [shape=box, style=filled, color=" + color + "]");
                 dotSrc.Add(n.Src1 + " -> " + op + " -> " + n.Id);
                 dotSrc.Add(n.Src2 + " -> " + op);
             }
@@ -112,7 +111,20 @@ namespace AoC24.Day24
 
             // We have the graph in fullGraph to copypaste and visualize with Dot/GraphViz
             // so we can at least start looking for what to change
-            var fullGraph = string.Join('\n', dotSrc);
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine("./", fileName)))
+            {
+                foreach (var line in dotSrc)
+                    outputFile.WriteLine(line);
+            }
+
+            // To render the graph into a file you can get graphviz from https://graphviz.org/download/
+            // and then from the command line : dot <generatedFile> -Tpng -o <output png file>
+        }
+
+        string FindWiresToSwap()
+        {
+            // The statement below is commented, it is just to generate a file we can open with Graphviz
+            // DumpCircuit("Aoc24D24P2.gv");
 
             // Now some research - The problem states that we have a circuit that is trying to add numbers X and Y
             // A first google search led me to a wiki page and this stuff
@@ -151,55 +163,81 @@ namespace AoC24.Day24
 
             foreach (var pair in pairs)     // From the namings in the comments above
             {
+                List<string> levelProblems = new();
                 var nX = pair.First;
                 var nY = pair.Second;
-                var level = int.Parse(nX.Substring(1));
-                var inCarry = carries[level - 1];
+                var nZ = nX.Replace("x","z");
 
+                var level = int.Parse(nX.Substring(1));
+                var carryIn = carries[level - 1];
+
+                // Step 1 - Let's make sure that both inputs are connected to the XOR and AND gates
                 var t1 = FindNode(nX, nY, "XOR");
                 var t2 = FindNode(nX, nY, "AND");
 
-                if (level == 19)
+                if (t1.Id.StartsWith("z"))
+                    levelProblems.Add(t1.Id);
+                if (t2.Id.StartsWith("z"))
+                    levelProblems.Add(t2.Id);
+
+                // Let's solve t1. The output of the XOR should be an input of a XOR and an AND along with the carry
+                var z = FindNode(t1.Id, carryIn, "XOR");
+                var t3 = FindNode(t1.Id, carryIn, "AND");
+
+                if (z is not null && !z.Id.StartsWith("z"))
+                    levelProblems.Add(z.Id);
+
+                if ( (z == null) || (t3 == null) ) 
                 {
-                    Console.WriteLine(level.ToString() + " - cph,z19");
-                    result.AddRange(["cph","z19"]);
-                    carries[level] = "crr";
-                    continue;
+                    // The wire is not going where it is suposed to go, either we have a problem with the 
+                    // t1 wire OR the carry wire
+                    var checkT1 = allNodes.Values.Where(x => x.Src1 == t1.Id || x.Src2 == t1.Id).ToList();
+                    var checkCarry = allNodes.Values.Where(x => x.Src1 == carryIn || x.Src2 == carryIn).ToList();
+
+                    // For both t1 and the carry we make sure they go to the XOR gates
+                    if (checkT1.Count() != 2)
+                        levelProblems.Add(t1.Id);
+                    else if (checkT1.Select(x => x.Op).Intersect(["XOR", "AND"]).Count() != 2)
+                        levelProblems.Add(t1.Id);
+                    else
+                    {
+                        // If t1 is not the problem, we solve t3 amd Z
+                        t3 = checkT1.First(x => x.Op == "AND");
+                        z  = checkT1.First(x => x.Op == "XOR");
+                    }
+
+                    if (checkCarry.Count() != 2)
+                        levelProblems.Add(carryIn);
+                    else if (checkCarry.Select(x => x.Op).Intersect(["XOR", "AND"]).Count() != 2)
+                        levelProblems.Add(carryIn);
+                    else
+                    {
+                        // If the carry in is not the problem, we solve t3 amd Z to continue processing
+                        t3 = checkCarry.First(x => x.Op == "AND");
+                        z = checkCarry.First(x => x.Op == "XOR");
+                    }
                 }
 
-                if (level == 33)
+                // Let's check if we're producing the carry properly now
+                var carryOut = FindNode(t2.Id, t3.Id, "OR");
+                if (carryOut == null)
                 {
-                    Console.WriteLine(level.ToString() + " - z33,hgj");
-                    result.AddRange(["z33", "hgj"]);
-                    carries[level] = "wvn";
-                    continue;
+                    // If it is a problem, we have to see which wire is not connected to the carry
+                    // attempt the wires one by one
+                    var check = FindNode(t2.Id, "OR");
+                    if (check == null)
+                        levelProblems.Add(t2.Id);
+                    else
+                        carryOut = check;
+
+                    check = FindNode(t3.Id, "OR");
+                    if (check == null)
+                        levelProblems.Add(t3.Id);
+                    else
+                        carryOut = check;
                 }
-
-                var z = FindNode(t1.Id, inCarry, "XOR");
-                var t3 = FindNode(t1.Id, inCarry, "AND");
-
-                // First approach, semi assisted solution - tell me the levels where we have problems with the related node names
-                // I solve the problem with this code and visual inspection of the graph (the best I can come up for now)
-                if (z == null || t3 == null)
-                {
-                    // We output the level
-                    List<string> names = [];
-                    if (t1 is not null)
-                        names.Add(t1.Id);
-                    if (t2 is not null)
-                        names.Add(t2.Id);
-                    if (t3 is not null)
-                        names.Add(t3.Id);
-                    result.AddRange(names);
-                    Console.WriteLine(level.ToString() + " - " + string.Join(',', names));
-                    // But we have to find the carry anyway before continuing
-                    var brokenCarry = FindNode(t2.Id, "OR") is not null ? FindNode(t2.Id, "OR") : FindNode(t1.Id, "OR");
-                    carries[level] = brokenCarry.Id;
-                    continue;
-                }
-
-                var outCarry = FindNode(t2.Id, t3.Id, "OR");
-                carries[level] = outCarry.Id;
+                carries[level] = carryOut.Id;
+                result.AddRange(levelProblems.Distinct());
             }
 
             return string.Join(',',result.OrderBy(x=>x));
@@ -207,6 +245,5 @@ namespace AoC24.Day24
 
         public string Solve(int part = 1)
             => part == 1 ? FindOutput().ToString() : FindWiresToSwap();
-        
     }
 }
