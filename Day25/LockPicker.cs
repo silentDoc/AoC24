@@ -2,18 +2,11 @@
 
 namespace AoC24.Day25
 {
-    enum SType
-    { 
-        Key, 
-        Lock
-    }
-
     class Schematic
     {
         Dictionary<Coord2D, char> map = new();
-        public SType Type;
+        public bool IsKey;
         public List<int> Heights = new();
-
         int maxY = -1;
 
         public Schematic(List<string> input)
@@ -23,34 +16,15 @@ namespace AoC24.Day25
                     map[(i, j)] = input[j][i];
 
             maxY = input.Count;
-            Type = (map[(0, 0)] == '#') ? SType.Lock: SType.Key;
+            IsKey = (map[(0, 0)] == '.');
 
-            // Todo - learn to use linq groupby properly
-            //Heights = map.Keys.GroupBy(k => k.x, k => k, (xCoord, pos) => new { Key = xCoord, count = pos.Count() });
-
-            var columns = Enumerable.Range(0, input[0].Length).ToList();
-            foreach (var col in columns)
-            {
-                var count = map.Keys.Where(k => k.x == col).Count(k => map[k] == '#');
-                Heights.Add(count);
-            }
+            for(int col = 0; col < input[0].Length; col++)
+                Heights.Add( map.Keys.Where(k => k.x == col).Count(k => map[k] == '#') );
         }
 
         public bool NoOverlap(Schematic other)
-        {
-            if (other.Type == this.Type)
-                return false;
-
-            return Heights.Zip(other.Heights, (a, b) => a + b).All(x => x <= maxY);
-        }
-
-        public bool Fits(Schematic other)
-        {
-            if (other.Type == this.Type)
-                return false;
-
-            return Heights.Zip(other.Heights, (a,b) => a + b).All(x => x == maxY);
-        }
+            => (other.IsKey == this.IsKey) ? false
+                                           : Heights.Zip(other.Heights, (a, b) => a + b).All(x => x <= maxY);
     }
 
     internal class LockPicker
@@ -62,14 +36,14 @@ namespace AoC24.Day25
             schms.ForEach(x => schematics.Add(new(x)));
         }
 
-        int FindGoodKeys()
+        int FindPairs()
         {
-            var Keys  = schematics.Where(s => s.Type == SType.Key).ToList();
-            var Locks = schematics.Where(s => s.Type == SType.Lock).ToList();
+            var Keys  = schematics.Where(s => s.IsKey).ToList();
+            var Locks = schematics.Where(s => !s.IsKey).ToList();
             return Keys.Sum(k => Locks.Where(l => l.NoOverlap(k) == true).Count());
         }
 
         public int Solve(int part = 1)
-            => FindGoodKeys();
+            => FindPairs();
     }
 }
