@@ -1,0 +1,668 @@
+digraph G {
+y41_AND_x41 [shape=box, style=filled, color=yellow]
+y41 -> y41_AND_x41 -> smr
+x41 -> y41_AND_x41
+bsj_XOR_hgq [shape=box, style=filled, color=cyan]
+bsj -> bsj_XOR_hgq -> z03
+hgq -> bsj_XOR_hgq
+cpj_AND_bwq [shape=box, style=filled, color=yellow]
+cpj -> cpj_AND_bwq -> qhs
+bwq -> cpj_AND_bwq
+y31_AND_x31 [shape=box, style=filled, color=yellow]
+y31 -> y31_AND_x31 -> tvv
+x31 -> y31_AND_x31
+fvb_XOR_bwt [shape=box, style=filled, color=cyan]
+fvb -> fvb_XOR_bwt -> z11
+bwt -> fvb_XOR_bwt
+rgs_XOR_pbq [shape=box, style=filled, color=cyan]
+rgs -> rgs_XOR_pbq -> z22
+pbq -> rgs_XOR_pbq
+djn_OR_jnn [shape=box, style=filled, color=green]
+djn -> djn_OR_jnn -> hrn
+jnn -> djn_OR_jnn
+y28_AND_x28 [shape=box, style=filled, color=yellow]
+y28 -> y28_AND_x28 -> jjt
+x28 -> y28_AND_x28
+wbk_AND_dcr [shape=box, style=filled, color=yellow]
+wbk -> wbk_AND_dcr -> whj
+dcr -> wbk_AND_dcr
+nkq_AND_gmg [shape=box, style=filled, color=yellow]
+nkq -> nkq_AND_gmg -> tfw
+gmg -> nkq_AND_gmg
+y05_XOR_x05 [shape=box, style=filled, color=cyan]
+y05 -> y05_XOR_x05 -> hqs
+x05 -> y05_XOR_x05
+hhv_OR_mcs [shape=box, style=filled, color=green]
+hhv -> hhv_OR_mcs -> bwb
+mcs -> hhv_OR_mcs
+x38_XOR_y38 [shape=box, style=filled, color=cyan]
+x38 -> x38_XOR_y38 -> dss
+y38 -> x38_XOR_y38
+dnj_AND_dss [shape=box, style=filled, color=yellow]
+dnj -> dnj_AND_dss -> nmq
+dss -> dnj_AND_dss
+hgw_XOR_kvr [shape=box, style=filled, color=cyan]
+hgw -> hgw_XOR_kvr -> npf
+kvr -> hgw_XOR_kvr
+kbb_OR_gnn [shape=box, style=filled, color=green]
+kbb -> kbb_OR_gnn -> z45
+gnn -> kbb_OR_gnn
+thh_XOR_vwd [shape=box, style=filled, color=cyan]
+thh -> thh_XOR_vwd -> z16
+vwd -> thh_XOR_vwd
+nmq_OR_wdn [shape=box, style=filled, color=green]
+nmq -> nmq_OR_wdn -> wbk
+wdn -> nmq_OR_wdn
+hcb_XOR_bkq [shape=box, style=filled, color=cyan]
+hcb -> hcb_XOR_bkq -> z10
+bkq -> hcb_XOR_bkq
+x27_AND_y27 [shape=box, style=filled, color=yellow]
+x27 -> x27_AND_y27 -> qtt
+y27 -> x27_AND_y27
+bwb_AND_nrw [shape=box, style=filled, color=yellow]
+bwb -> bwb_AND_nrw -> kfh
+nrw -> bwb_AND_nrw
+kbn_XOR_kvv [shape=box, style=filled, color=cyan]
+kbn -> kbn_XOR_kvv -> z08
+kvv -> kbn_XOR_kvv
+y03_XOR_x03 [shape=box, style=filled, color=cyan]
+y03 -> y03_XOR_x03 -> bsj
+x03 -> y03_XOR_x03
+y12_XOR_x12 [shape=box, style=filled, color=cyan]
+y12 -> y12_XOR_x12 -> vhk
+x12 -> y12_XOR_x12
+cjv_AND_sns [shape=box, style=filled, color=yellow]
+cjv -> cjv_AND_sns -> rsr
+sns -> cjv_AND_sns
+rvp_XOR_tss [shape=box, style=filled, color=cyan]
+rvp -> rvp_XOR_tss -> z01
+tss -> rvp_XOR_tss
+tss_AND_rvp [shape=box, style=filled, color=yellow]
+tss -> tss_AND_rvp -> bcr
+rvp -> tss_AND_rvp
+vhk_XOR_crc [shape=box, style=filled, color=cyan]
+vhk -> vhk_XOR_crc -> z12
+crc -> vhk_XOR_crc
+cpm_OR_hqj [shape=box, style=filled, color=green]
+cpm -> cpm_OR_hqj -> tgg
+hqj -> cpm_OR_hqj
+x30_XOR_y30 [shape=box, style=filled, color=cyan]
+x30 -> x30_XOR_y30 -> gsd
+y30 -> x30_XOR_y30
+y00_AND_x00 [shape=box, style=filled, color=yellow]
+y00 -> y00_AND_x00 -> tss
+x00 -> y00_AND_x00
+vgm_AND_fhs [shape=box, style=filled, color=yellow]
+vgm -> vgm_AND_fhs -> fwc
+fhs -> vgm_AND_fhs
+y07_AND_x07 [shape=box, style=filled, color=yellow]
+y07 -> y07_AND_x07 -> dmj
+x07 -> y07_AND_x07
+x21_AND_y21 [shape=box, style=filled, color=yellow]
+x21 -> x21_AND_y21 -> cpc
+y21 -> x21_AND_y21
+y08_XOR_x08 [shape=box, style=filled, color=cyan]
+y08 -> y08_XOR_x08 -> kvv
+x08 -> y08_XOR_x08
+x29_AND_y29 [shape=box, style=filled, color=yellow]
+x29 -> x29_AND_y29 -> wfp
+y29 -> x29_AND_y29
+grg_OR_nmr [shape=box, style=filled, color=green]
+grg -> grg_OR_nmr -> thh
+nmr -> grg_OR_nmr
+x24_AND_y24 [shape=box, style=filled, color=yellow]
+x24 -> x24_AND_y24 -> vvb
+y24 -> x24_AND_y24
+qdb_OR_fwc [shape=box, style=filled, color=green]
+qdb -> qdb_OR_fwc -> jsf
+fwc -> qdb_OR_fwc
+dkv_OR_smr [shape=box, style=filled, color=green]
+dkv -> dkv_OR_smr -> wdg
+smr -> dkv_OR_smr
+dpk_OR_cpc [shape=box, style=filled, color=green]
+dpk -> dpk_OR_cpc -> pbq
+cpc -> dpk_OR_cpc
+hrn_AND_ngg [shape=box, style=filled, color=yellow]
+hrn -> hrn_AND_ngg -> dkv
+ngg -> hrn_AND_ngg
+y26_AND_x26 [shape=box, style=filled, color=yellow]
+y26 -> y26_AND_x26 -> fmq
+x26 -> y26_AND_x26
+qnc_XOR_tgg [shape=box, style=filled, color=cyan]
+qnc -> qnc_XOR_tgg -> z36
+tgg -> qnc_XOR_tgg
+y06_XOR_x06 [shape=box, style=filled, color=cyan]
+y06 -> y06_XOR_x06 -> kwr
+x06 -> y06_XOR_x06
+pcf_XOR_vrt [shape=box, style=filled, color=cyan]
+pcf -> pcf_XOR_vrt -> z26
+vrt -> pcf_XOR_vrt
+bjn_AND_qkc [shape=box, style=filled, color=yellow]
+bjn -> bjn_AND_qkc -> djn
+qkc -> bjn_AND_qkc
+y41_XOR_x41 [shape=box, style=filled, color=cyan]
+y41 -> y41_XOR_x41 -> ngg
+x41 -> y41_XOR_x41
+x18_XOR_y18 [shape=box, style=filled, color=cyan]
+x18 -> x18_XOR_y18 -> sqn
+y18 -> x18_XOR_y18
+fmq_OR_cpb [shape=box, style=filled, color=green]
+fmq -> fmq_OR_cpb -> cjv
+cpb -> fmq_OR_cpb
+x40_XOR_y40 [shape=box, style=filled, color=cyan]
+x40 -> x40_XOR_y40 -> qkc
+y40 -> x40_XOR_y40
+gch_XOR_fgn [shape=box, style=filled, color=cyan]
+gch -> gch_XOR_fgn -> z28
+fgn -> gch_XOR_fgn
+y02_XOR_x02 [shape=box, style=filled, color=cyan]
+y02 -> y02_XOR_x02 -> ccn
+x02 -> y02_XOR_x02
+y23_XOR_x23 [shape=box, style=filled, color=cyan]
+y23 -> y23_XOR_x23 -> nrw
+x23 -> y23_XOR_x23
+x22_AND_y22 [shape=box, style=filled, color=yellow]
+x22 -> x22_AND_y22 -> mcs
+y22 -> x22_AND_y22
+fvb_AND_bwt [shape=box, style=filled, color=yellow]
+fvb -> fvb_AND_bwt -> wcm
+bwt -> fvb_AND_bwt
+fsn_OR_vvb [shape=box, style=filled, color=green]
+fsn -> fsn_OR_vvb -> qqb
+vvb -> fsn_OR_vvb
+y28_XOR_x28 [shape=box, style=filled, color=cyan]
+y28 -> y28_XOR_x28 -> gch
+x28 -> y28_XOR_x28
+ndw_XOR_bfr [shape=box, style=filled, color=cyan]
+ndw -> ndw_XOR_bfr -> z17
+bfr -> ndw_XOR_bfr
+x10_AND_y10 [shape=box, style=filled, color=yellow]
+x10 -> x10_AND_y10 -> jbn
+y10 -> x10_AND_y10
+y34_AND_x34 [shape=box, style=filled, color=yellow]
+y34 -> y34_AND_x34 -> rss
+x34 -> y34_AND_x34
+x01_AND_y01 [shape=box, style=filled, color=yellow]
+x01 -> x01_AND_y01 -> jcr
+y01 -> x01_AND_y01
+x34_XOR_y34 [shape=box, style=filled, color=cyan]
+x34 -> x34_XOR_y34 -> cnd
+y34 -> x34_XOR_y34
+nfc_XOR_rsw [shape=box, style=filled, color=cyan]
+nfc -> nfc_XOR_rsw -> z04
+rsw -> nfc_XOR_rsw
+dcr_XOR_wbk [shape=box, style=filled, color=cyan]
+dcr -> dcr_XOR_wbk -> z39
+wbk -> dcr_XOR_wbk
+x35_XOR_y35 [shape=box, style=filled, color=cyan]
+x35 -> x35_XOR_y35 -> rnk
+y35 -> x35_XOR_y35
+sqn_XOR_tkw [shape=box, style=filled, color=cyan]
+sqn -> sqn_XOR_tkw -> z18
+tkw -> sqn_XOR_tkw
+gns_OR_wfc [shape=box, style=filled, color=green]
+gns -> gns_OR_wfc -> fhs
+wfc -> gns_OR_wfc
+y44_AND_x44 [shape=box, style=filled, color=yellow]
+y44 -> y44_AND_x44 -> gnn
+x44 -> y44_AND_x44
+y39_XOR_x39 [shape=box, style=filled, color=cyan]
+y39 -> y39_XOR_x39 -> dcr
+x39 -> y39_XOR_x39
+sqn_AND_tkw [shape=box, style=filled, color=yellow]
+sqn -> sqn_AND_tkw -> mdc
+tkw -> sqn_AND_tkw
+y03_AND_x03 [shape=box, style=filled, color=yellow]
+y03 -> y03_AND_x03 -> wkg
+x03 -> y03_AND_x03
+wvn_AND_cnd [shape=box, style=filled, color=yellow]
+wvn -> wvn_AND_cnd -> stw
+cnd -> wvn_AND_cnd
+x06_AND_y06 [shape=box, style=filled, color=yellow]
+x06 -> x06_AND_y06 -> gqj
+y06 -> x06_AND_y06
+x23_AND_y23 [shape=box, style=filled, color=yellow]
+x23 -> x23_AND_y23 -> fcf
+y23 -> x23_AND_y23
+jsf_XOR_tsc [shape=box, style=filled, color=cyan]
+jsf -> jsf_XOR_tsc -> z44
+tsc -> jsf_XOR_tsc
+rsw_AND_nfc [shape=box, style=filled, color=yellow]
+rsw -> rsw_AND_nfc -> pkg
+nfc -> rsw_AND_nfc
+x37_AND_y37 [shape=box, style=filled, color=yellow]
+x37 -> x37_AND_y37 -> ksq
+y37 -> x37_AND_y37
+y04_AND_x04 [shape=box, style=filled, color=yellow]
+y04 -> y04_AND_x04 -> hct
+x04 -> y04_AND_x04
+x31_XOR_y31 [shape=box, style=filled, color=cyan]
+x31 -> x31_XOR_y31 -> stn
+y31 -> x31_XOR_y31
+y38_AND_x38 [shape=box, style=filled, color=yellow]
+y38 -> y38_AND_x38 -> wdn
+x38 -> y38_AND_x38
+rsm_AND_fnq [shape=box, style=filled, color=yellow]
+rsm -> rsm_AND_fnq -> dgm
+fnq -> rsm_AND_fnq
+y29_XOR_x29 [shape=box, style=filled, color=cyan]
+y29 -> y29_XOR_x29 -> cpj
+x29 -> y29_XOR_x29
+pcb_XOR_pgc [shape=box, style=filled, color=cyan]
+pcb -> pcb_XOR_pgc -> z21
+pgc -> pcb_XOR_pgc
+bfq_OR_gmp [shape=box, style=filled, color=green]
+bfq -> bfq_OR_gmp -> pcf
+gmp -> bfq_OR_gmp
+thh_AND_vwd [shape=box, style=filled, color=yellow]
+thh -> thh_AND_vwd -> cdw
+vwd -> thh_AND_vwd
+y43_XOR_x43 [shape=box, style=filled, color=cyan]
+y43 -> y43_XOR_x43 -> vgm
+x43 -> y43_XOR_x43
+bkq_AND_hcb [shape=box, style=filled, color=yellow]
+bkq -> bkq_AND_hcb -> qvn
+hcb -> bkq_AND_hcb
+cnd_XOR_wvn [shape=box, style=filled, color=cyan]
+cnd -> cnd_XOR_wvn -> z34
+wvn -> cnd_XOR_wvn
+rgs_AND_pbq [shape=box, style=filled, color=yellow]
+rgs -> rgs_AND_pbq -> hhv
+pbq -> rgs_AND_pbq
+wtm_XOR_wgq [shape=box, style=filled, color=cyan]
+wtm -> wtm_XOR_wgq -> hgj
+wgq -> wtm_XOR_wgq
+x36_XOR_y36 [shape=box, style=filled, color=cyan]
+x36 -> x36_XOR_y36 -> qnc
+y36 -> x36_XOR_y36
+ngg_XOR_hrn [shape=box, style=filled, color=cyan]
+ngg -> ngg_XOR_hrn -> z41
+hrn -> ngg_XOR_hrn
+y18_AND_x18 [shape=box, style=filled, color=yellow]
+y18 -> y18_AND_x18 -> fbp
+x18 -> y18_AND_x18
+hgq_AND_bsj [shape=box, style=filled, color=yellow]
+hgq -> hgq_AND_bsj -> tqt
+bsj -> hgq_AND_bsj
+mbh_AND_hqs [shape=box, style=filled, color=yellow]
+mbh -> mbh_AND_hqs -> fgr
+hqs -> mbh_AND_hqs
+hqs_XOR_mbh [shape=box, style=filled, color=cyan]
+hqs -> hqs_XOR_mbh -> z05
+mbh -> hqs_XOR_mbh
+svf_OR_bgf [shape=box, style=filled, color=green]
+svf -> svf_OR_bgf -> hgw
+bgf -> svf_OR_bgf
+btg_AND_ghj [shape=box, style=filled, color=yellow]
+btg -> btg_AND_ghj -> wwc
+ghj -> btg_AND_ghj
+kfh_OR_fcf [shape=box, style=filled, color=green]
+kfh -> kfh_OR_fcf -> vgp
+fcf -> kfh_OR_fcf
+x13_AND_y13 [shape=box, style=filled, color=yellow]
+x13 -> x13_AND_y13 -> fmh
+y13 -> x13_AND_y13
+wgq_AND_wtm [shape=box, style=filled, color=yellow]
+wgq -> wgq_AND_wtm -> z33
+wtm -> wgq_AND_wtm
+dhb_OR_tvv [shape=box, style=filled, color=green]
+dhb -> dhb_OR_tvv -> gmj
+tvv -> dhb_OR_tvv
+kwr_XOR_vdv [shape=box, style=filled, color=cyan]
+kwr -> kwr_XOR_vdv -> z06
+vdv -> kwr_XOR_vdv
+rnk_XOR_fwd [shape=box, style=filled, color=cyan]
+rnk -> rnk_XOR_fwd -> z35
+fwd -> rnk_XOR_fwd
+tkr_OR_hhm [shape=box, style=filled, color=green]
+tkr -> tkr_OR_hhm -> hgq
+hhm -> tkr_OR_hhm
+y09_XOR_x09 [shape=box, style=filled, color=cyan]
+y09 -> y09_XOR_x09 -> nnt
+x09 -> y09_XOR_x09
+rnk_AND_fwd [shape=box, style=filled, color=yellow]
+rnk -> rnk_AND_fwd -> hqj
+fwd -> rnk_AND_fwd
+wkg_OR_tqt [shape=box, style=filled, color=green]
+wkg -> wkg_OR_tqt -> nfc
+tqt -> wkg_OR_tqt
+cdw_OR_jtb [shape=box, style=filled, color=green]
+cdw -> cdw_OR_jtb -> ndw
+jtb -> cdw_OR_jtb
+fkb_AND_vgp [shape=box, style=filled, color=yellow]
+fkb -> fkb_AND_vgp -> fsn
+vgp -> fkb_AND_vgp
+x24_XOR_y24 [shape=box, style=filled, color=cyan]
+x24 -> x24_XOR_y24 -> fkb
+y24 -> x24_XOR_y24
+y26_XOR_x26 [shape=box, style=filled, color=cyan]
+y26 -> y26_XOR_x26 -> vrt
+x26 -> y26_XOR_x26
+x19_XOR_y19 [shape=box, style=filled, color=cyan]
+x19 -> x19_XOR_y19 -> fnq
+y19 -> x19_XOR_y19
+nkq_XOR_gmg [shape=box, style=filled, color=cyan]
+nkq -> nkq_XOR_gmg -> z37
+gmg -> nkq_XOR_gmg
+y22_XOR_x22 [shape=box, style=filled, color=cyan]
+y22 -> y22_XOR_x22 -> rgs
+x22 -> y22_XOR_x22
+pcd_XOR_gws [shape=box, style=filled, color=cyan]
+pcd -> pcd_XOR_gws -> z09
+gws -> pcd_XOR_gws
+ccn_AND_tdp [shape=box, style=filled, color=yellow]
+ccn -> ccn_AND_tdp -> tkr
+tdp -> ccn_AND_tdp
+pcf_AND_vrt [shape=box, style=filled, color=yellow]
+pcf -> pcf_AND_vrt -> cpb
+vrt -> pcf_AND_vrt
+hct_OR_pkg [shape=box, style=filled, color=green]
+hct -> hct_OR_pkg -> mbh
+pkg -> hct_OR_pkg
+fmp_OR_wcm [shape=box, style=filled, color=green]
+fmp -> fmp_OR_wcm -> crc
+wcm -> fmp_OR_wcm
+y32_AND_x32 [shape=box, style=filled, color=yellow]
+y32 -> y32_AND_x32 -> mhn
+x32 -> y32_AND_x32
+stn_AND_rkn [shape=box, style=filled, color=yellow]
+stn -> stn_AND_rkn -> dhb
+rkn -> stn_AND_rkn
+mtk_AND_gmj [shape=box, style=filled, color=yellow]
+mtk -> mtk_AND_gmj -> mmg
+gmj -> mtk_AND_gmj
+y14_XOR_x14 [shape=box, style=filled, color=cyan]
+y14 -> y14_XOR_x14 -> tbd
+x14 -> y14_XOR_x14
+y08_AND_x08 [shape=box, style=filled, color=yellow]
+y08 -> y08_AND_x08 -> dvh
+x08 -> y08_AND_x08
+bct_XOR_wdg [shape=box, style=filled, color=cyan]
+bct -> bct_XOR_wdg -> z42
+wdg -> bct_XOR_wdg
+crr_AND_jgw [shape=box, style=filled, color=yellow]
+crr -> crr_AND_jgw -> cqs
+jgw -> crr_AND_jgw
+y25_XOR_x25 [shape=box, style=filled, color=cyan]
+y25 -> y25_XOR_x25 -> sws
+x25 -> y25_XOR_x25
+x33_XOR_y33 [shape=box, style=filled, color=cyan]
+x33 -> x33_XOR_y33 -> wtm
+y33 -> x33_XOR_y33
+bct_AND_wdg [shape=box, style=filled, color=yellow]
+bct -> bct_AND_wdg -> gns
+wdg -> bct_AND_wdg
+bwb_XOR_nrw [shape=box, style=filled, color=cyan]
+bwb -> bwb_XOR_nrw -> z23
+nrw -> bwb_XOR_nrw
+y15_AND_x15 [shape=box, style=filled, color=yellow]
+y15 -> y15_AND_x15 -> grg
+x15 -> y15_AND_x15
+x21_XOR_y21 [shape=box, style=filled, color=cyan]
+x21 -> x21_XOR_y21 -> pcb
+y21 -> x21_XOR_y21
+y14_AND_x14 [shape=box, style=filled, color=yellow]
+y14 -> y14_AND_x14 -> whd
+x14 -> y14_AND_x14
+qqb_XOR_sws [shape=box, style=filled, color=cyan]
+qqb -> qqb_XOR_sws -> z25
+sws -> qqb_XOR_sws
+fhs_XOR_vgm [shape=box, style=filled, color=cyan]
+fhs -> fhs_XOR_vgm -> z43
+vgm -> fhs_XOR_vgm
+fvk_OR_hgj [shape=box, style=filled, color=green]
+fvk -> fvk_OR_hgj -> wvn
+hgj -> fvk_OR_hgj
+crr_XOR_jgw [shape=box, style=filled, color=cyan]
+crr -> crr_XOR_jgw -> z20
+jgw -> crr_XOR_jgw
+x07_XOR_y07 [shape=box, style=filled, color=cyan]
+x07 -> x07_XOR_y07 -> btg
+y07 -> x07_XOR_y07
+qnc_AND_tgg [shape=box, style=filled, color=yellow]
+qnc -> qnc_AND_tgg -> ghc
+tgg -> qnc_AND_tgg
+hgw_AND_kvr [shape=box, style=filled, color=yellow]
+hgw -> hgw_AND_kvr -> tqs
+kvr -> hgw_AND_kvr
+npf_XOR_tbd [shape=box, style=filled, color=cyan]
+npf -> npf_XOR_tbd -> z14
+tbd -> npf_XOR_tbd
+y36_AND_x36 [shape=box, style=filled, color=yellow]
+y36 -> y36_AND_x36 -> bws
+x36 -> y36_AND_x36
+stn_XOR_rkn [shape=box, style=filled, color=cyan]
+stn -> stn_XOR_rkn -> z31
+rkn -> stn_XOR_rkn
+y16_XOR_x16 [shape=box, style=filled, color=cyan]
+y16 -> y16_XOR_x16 -> vwd
+x16 -> y16_XOR_x16
+whj_OR_std [shape=box, style=filled, color=green]
+whj -> whj_OR_std -> bjn
+std -> whj_OR_std
+x15_XOR_y15 [shape=box, style=filled, color=cyan]
+x15 -> x15_XOR_y15 -> rmr
+y15 -> x15_XOR_y15
+y44_XOR_x44 [shape=box, style=filled, color=cyan]
+y44 -> y44_XOR_x44 -> tsc
+x44 -> y44_XOR_x44
+bcr_OR_jcr [shape=box, style=filled, color=green]
+bcr -> bcr_OR_jcr -> tdp
+jcr -> bcr_OR_jcr
+y12_AND_x12 [shape=box, style=filled, color=yellow]
+y12 -> y12_AND_x12 -> svf
+x12 -> y12_AND_x12
+gsd_AND_vqg [shape=box, style=filled, color=yellow]
+gsd -> gsd_AND_vqg -> whp
+vqg -> gsd_AND_vqg
+y17_XOR_x17 [shape=box, style=filled, color=cyan]
+y17 -> y17_XOR_x17 -> bfr
+x17 -> y17_XOR_x17
+y32_XOR_x32 [shape=box, style=filled, color=cyan]
+y32 -> y32_XOR_x32 -> mtk
+x32 -> y32_XOR_x32
+bjn_XOR_qkc [shape=box, style=filled, color=cyan]
+bjn -> bjn_XOR_qkc -> z40
+qkc -> bjn_XOR_qkc
+x20_XOR_y20 [shape=box, style=filled, color=cyan]
+x20 -> x20_XOR_y20 -> jgw
+y20 -> x20_XOR_y20
+x11_XOR_y11 [shape=box, style=filled, color=cyan]
+x11 -> x11_XOR_y11 -> bwt
+y11 -> x11_XOR_y11
+wwr_OR_kfn [shape=box, style=filled, color=green]
+wwr -> wwr_OR_kfn -> tkw
+kfn -> wwr_OR_kfn
+x09_AND_y09 [shape=box, style=filled, color=yellow]
+x09 -> x09_AND_y09 -> gws
+y09 -> x09_AND_y09
+dgm_OR_cph [shape=box, style=filled, color=green]
+dgm -> dgm_OR_cph -> crr
+cph -> dgm_OR_cph
+fgn_AND_gch [shape=box, style=filled, color=yellow]
+fgn -> fgn_AND_gch -> gdn
+gch -> fgn_AND_gch
+x37_XOR_y37 [shape=box, style=filled, color=cyan]
+x37 -> x37_XOR_y37 -> gmg
+y37 -> x37_XOR_y37
+x10_XOR_y10 [shape=box, style=filled, color=cyan]
+x10 -> x10_XOR_y10 -> bkq
+y10 -> x10_XOR_y10
+wwc_OR_dmj [shape=box, style=filled, color=green]
+wwc -> wwc_OR_dmj -> kbn
+dmj -> wwc_OR_dmj
+kvv_AND_kbn [shape=box, style=filled, color=yellow]
+kvv -> kvv_AND_kbn -> mdr
+kbn -> kvv_AND_kbn
+rqg_OR_whp [shape=box, style=filled, color=green]
+rqg -> rqg_OR_whp -> rkn
+whp -> rqg_OR_whp
+sws_AND_qqb [shape=box, style=filled, color=yellow]
+sws -> sws_AND_qqb -> bfq
+qqb -> sws_AND_qqb
+x13_XOR_y13 [shape=box, style=filled, color=cyan]
+x13 -> x13_XOR_y13 -> kvr
+y13 -> x13_XOR_y13
+mdr_OR_dvh [shape=box, style=filled, color=green]
+mdr -> mdr_OR_dvh -> pcd
+dvh -> mdr_OR_dvh
+dnj_XOR_dss [shape=box, style=filled, color=cyan]
+dnj -> dnj_XOR_dss -> z38
+dss -> dnj_XOR_dss
+jbn_OR_qvn [shape=box, style=filled, color=green]
+jbn -> jbn_OR_qvn -> fvb
+qvn -> jbn_OR_qvn
+y42_XOR_x42 [shape=box, style=filled, color=cyan]
+y42 -> y42_XOR_x42 -> bct
+x42 -> y42_XOR_x42
+mhn_OR_mmg [shape=box, style=filled, color=green]
+mhn -> mhn_OR_mmg -> wgq
+mmg -> mhn_OR_mmg
+gws_AND_pcd [shape=box, style=filled, color=yellow]
+gws -> gws_AND_pcd -> tqw
+pcd -> gws_AND_pcd
+y00_XOR_x00 [shape=box, style=filled, color=cyan]
+y00 -> y00_XOR_x00 -> z00
+x00 -> y00_XOR_x00
+x11_AND_y11 [shape=box, style=filled, color=yellow]
+x11 -> x11_AND_y11 -> fmp
+y11 -> x11_AND_y11
+fgr_OR_cqc [shape=box, style=filled, color=green]
+fgr -> fgr_OR_cqc -> vdv
+cqc -> fgr_OR_cqc
+nnt_OR_tqw [shape=box, style=filled, color=green]
+nnt -> nnt_OR_tqw -> hcb
+tqw -> nnt_OR_tqw
+kwr_AND_vdv [shape=box, style=filled, color=yellow]
+kwr -> kwr_AND_vdv -> jjp
+vdv -> kwr_AND_vdv
+fkb_XOR_vgp [shape=box, style=filled, color=cyan]
+fkb -> fkb_XOR_vgp -> z24
+vgp -> fkb_XOR_vgp
+fbp_OR_mdc [shape=box, style=filled, color=green]
+fbp -> fbp_OR_mdc -> rsm
+mdc -> fbp_OR_mdc
+rmr_AND_pnt [shape=box, style=filled, color=yellow]
+rmr -> rmr_AND_pnt -> nmr
+pnt -> rmr_AND_pnt
+x20_AND_y20 [shape=box, style=filled, color=yellow]
+x20 -> x20_AND_y20 -> hmh
+y20 -> x20_AND_y20
+y05_AND_x05 [shape=box, style=filled, color=yellow]
+y05 -> y05_AND_x05 -> cqc
+x05 -> y05_AND_x05
+gmj_XOR_mtk [shape=box, style=filled, color=cyan]
+gmj -> gmj_XOR_mtk -> z32
+mtk -> gmj_XOR_mtk
+qhs_OR_wfp [shape=box, style=filled, color=green]
+qhs -> qhs_OR_wfp -> vqg
+wfp -> qhs_OR_wfp
+vqg_XOR_gsd [shape=box, style=filled, color=cyan]
+vqg -> vqg_XOR_gsd -> z30
+gsd -> vqg_XOR_gsd
+bws_OR_ghc [shape=box, style=filled, color=green]
+bws -> bws_OR_ghc -> nkq
+ghc -> bws_OR_ghc
+y43_AND_x43 [shape=box, style=filled, color=yellow]
+y43 -> y43_AND_x43 -> qdb
+x43 -> y43_AND_x43
+x16_AND_y16 [shape=box, style=filled, color=yellow]
+x16 -> x16_AND_y16 -> jtb
+y16 -> x16_AND_y16
+qtt_OR_rsr [shape=box, style=filled, color=green]
+qtt -> qtt_OR_rsr -> fgn
+rsr -> qtt_OR_rsr
+tfw_OR_ksq [shape=box, style=filled, color=green]
+tfw -> tfw_OR_ksq -> dnj
+ksq -> tfw_OR_ksq
+tdp_XOR_ccn [shape=box, style=filled, color=cyan]
+tdp -> tdp_XOR_ccn -> z02
+ccn -> tdp_XOR_ccn
+cpj_XOR_bwq [shape=box, style=filled, color=cyan]
+cpj -> cpj_XOR_bwq -> z29
+bwq -> cpj_XOR_bwq
+x35_AND_y35 [shape=box, style=filled, color=yellow]
+x35 -> x35_AND_y35 -> cpm
+y35 -> x35_AND_y35
+fmh_OR_tqs [shape=box, style=filled, color=green]
+fmh -> fmh_OR_tqs -> z13
+tqs -> fmh_OR_tqs
+y02_AND_x02 [shape=box, style=filled, color=yellow]
+y02 -> y02_AND_x02 -> hhm
+x02 -> y02_AND_x02
+x40_AND_y40 [shape=box, style=filled, color=yellow]
+x40 -> x40_AND_y40 -> jnn
+y40 -> x40_AND_y40
+stw_OR_rss [shape=box, style=filled, color=green]
+stw -> stw_OR_rss -> fwd
+rss -> stw_OR_rss
+tbd_AND_npf [shape=box, style=filled, color=yellow]
+tbd -> tbd_AND_npf -> kdt
+npf -> tbd_AND_npf
+y42_AND_x42 [shape=box, style=filled, color=yellow]
+y42 -> y42_AND_x42 -> wfc
+x42 -> y42_AND_x42
+pgc_AND_pcb [shape=box, style=filled, color=yellow]
+pgc -> pgc_AND_pcb -> dpk
+pcb -> pgc_AND_pcb
+ghj_XOR_btg [shape=box, style=filled, color=cyan]
+ghj -> ghj_XOR_btg -> z07
+btg -> ghj_XOR_btg
+x33_AND_y33 [shape=box, style=filled, color=yellow]
+x33 -> x33_AND_y33 -> fvk
+y33 -> x33_AND_y33
+pnt_XOR_rmr [shape=box, style=filled, color=cyan]
+pnt -> pnt_XOR_rmr -> z15
+rmr -> pnt_XOR_rmr
+tsc_AND_jsf [shape=box, style=filled, color=yellow]
+tsc -> tsc_AND_jsf -> kbb
+jsf -> tsc_AND_jsf
+y39_AND_x39 [shape=box, style=filled, color=yellow]
+y39 -> y39_AND_x39 -> std
+x39 -> y39_AND_x39
+y19_AND_x19 [shape=box, style=filled, color=yellow]
+y19 -> y19_AND_x19 -> z19
+x19 -> y19_AND_x19
+x01_XOR_y01 [shape=box, style=filled, color=cyan]
+x01 -> x01_XOR_y01 -> rvp
+y01 -> x01_XOR_y01
+y25_AND_x25 [shape=box, style=filled, color=yellow]
+y25 -> y25_AND_x25 -> gmp
+x25 -> y25_AND_x25
+x27_XOR_y27 [shape=box, style=filled, color=cyan]
+x27 -> x27_XOR_y27 -> sns
+y27 -> x27_XOR_y27
+jjp_OR_gqj [shape=box, style=filled, color=green]
+jjp -> jjp_OR_gqj -> ghj
+gqj -> jjp_OR_gqj
+rsm_XOR_fnq [shape=box, style=filled, color=cyan]
+rsm -> rsm_XOR_fnq -> cph
+fnq -> rsm_XOR_fnq
+crc_AND_vhk [shape=box, style=filled, color=yellow]
+crc -> crc_AND_vhk -> bgf
+vhk -> crc_AND_vhk
+x04_XOR_y04 [shape=box, style=filled, color=cyan]
+x04 -> x04_XOR_y04 -> rsw
+y04 -> x04_XOR_y04
+x17_AND_y17 [shape=box, style=filled, color=yellow]
+x17 -> x17_AND_y17 -> kfn
+y17 -> x17_AND_y17
+y30_AND_x30 [shape=box, style=filled, color=yellow]
+y30 -> y30_AND_x30 -> rqg
+x30 -> y30_AND_x30
+jjt_OR_gdn [shape=box, style=filled, color=green]
+jjt -> jjt_OR_gdn -> bwq
+gdn -> jjt_OR_gdn
+bfr_AND_ndw [shape=box, style=filled, color=yellow]
+bfr -> bfr_AND_ndw -> wwr
+ndw -> bfr_AND_ndw
+cqs_OR_hmh [shape=box, style=filled, color=green]
+cqs -> cqs_OR_hmh -> pgc
+hmh -> cqs_OR_hmh
+whd_OR_kdt [shape=box, style=filled, color=green]
+whd -> whd_OR_kdt -> pnt
+kdt -> whd_OR_kdt
+cjv_XOR_sns [shape=box, style=filled, color=cyan]
+cjv -> cjv_XOR_sns -> z27
+sns -> cjv_XOR_sns
+}
